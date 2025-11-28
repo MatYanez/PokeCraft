@@ -118,7 +118,7 @@ function setupCircularScroll() {
     let isAdjusting = false;
 
     scrollArea.addEventListener("scroll", () => {
-        if (isAdjusting || interactionsLocked) return; // ← bloquea en modo turno
+        if (isAdjusting || interactionsLocked) return;
 
         const position = scrollArea.scrollLeft;
         const maxScroll = scrollArea.scrollWidth - scrollArea.clientWidth;
@@ -178,7 +178,7 @@ function animateScroll(from, to, duration) {
 
     function frame(now) {
         const progress = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);  
+        const eased = 1 - Math.pow(1 - progress, 3);
         scrollArea.scrollLeft = from + (to - from) * eased;
         if (progress < 1) requestAnimationFrame(frame);
     }
@@ -199,6 +199,7 @@ scrollArea.addEventListener("scroll", () => {
 
 let selectedCard = null;
 let interactionsLocked = false;
+let isHidden = false;
 
 const controls = document.getElementById("controls");
 const btnHide = document.getElementById("btnHide");
@@ -227,27 +228,48 @@ function flipCard(inner, state) {
 function overrideCardFlip(inner) {
     inner.addEventListener("click", () => {
 
+        // Si está bloqueado y NO es la carta seleccionada
         if (interactionsLocked && selectedCard !== inner) return;
 
+        // Si está bloqueado y ES la carta seleccionada → toggle con click
         if (interactionsLocked && selectedCard === inner) {
-            flipCard(inner, "front");
+            if (isHidden) {
+                flipCard(inner, "front");
+                isHidden = false;
+                btnHide.textContent = "Ocultar";
+            }
             return;
         }
 
-        inner.classList.add("flipped");
+        // Primera vez que se abre
+        flipCard(inner, "front");
         selectedCard = inner;
+        isHidden = false;
+        btnHide.textContent = "Ocultar"; // ← texto correcto
         lockInteractions();
     });
 }
 
+/* =====================================================
+   BOTÓN OCULTAR / MOSTRAR (TOGGLE)
+===================================================== */
 btnHide.addEventListener("click", () => {
     if (!selectedCard) return;
 
-    flipCard(selectedCard, "back");
-
-    // NO desbloquear
+    if (isHidden) {
+        flipCard(selectedCard, "front");
+        isHidden = false;
+        btnHide.textContent = "Ocultar";
+    } else {
+        flipCard(selectedCard, "back");
+        isHidden = true;
+        btnHide.textContent = "Mostrar";
+    }
 });
 
+/* =====================================================
+   BOTÓN SIGUIENTE TURNO
+===================================================== */
 btnNext.addEventListener("click", () => {
     if (!selectedCard) return;
 
@@ -258,6 +280,8 @@ btnNext.addEventListener("click", () => {
     setTimeout(() => {
         card.remove();
         selectedCard = null;
+        isHidden = false;
+        btnHide.textContent = "Ocultar"; // reset
         unlockInteractions();
     }, 350);
 });
