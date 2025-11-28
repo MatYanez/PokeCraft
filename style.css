@@ -29,7 +29,7 @@ body {
 
     overflow-x: scroll;
     overflow-y: hidden;
-    height: 100vh;
+height: calc(100vh - 120px);
     align-items: center;
 
     scroll-snap-type: x mandatory;
