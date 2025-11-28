@@ -90,5 +90,5 @@ async function loadPokemonData(front, id) {
     const art = front.querySelector("[data-art]");
 
     /* Arte oficial */
-    art.src = data.sprites.other["official-artwork"].front_default;
+art.src = data.sprites.front_default;
 }
