@@ -75,8 +75,30 @@ function createCards() {
 }
 
 /* =====================================================
-   3. CARGAR DATOS DEL POKÉMON + MODO SHINY
+   3. CARGAR DATOS DEL POKÉMON + MODO SHINY + FONDO POR TIPO
 ===================================================== */
+
+const typeBackgrounds = {
+    normal:    "linear-gradient(135deg, #cfcfcf, #9e9e9e)",
+    fire:      "linear-gradient(135deg, #ff9a3c, #ff3c00)",
+    water:     "linear-gradient(135deg, #3ca0ff, #005eff)",
+    electric:  "linear-gradient(135deg, #ffe13c, #ffb800)",
+    grass:     "linear-gradient(135deg, #7ed957, #2ba84a)",
+    ice:       "linear-gradient(135deg, #8de7ff, #42c3ff)",
+    fighting:  "linear-gradient(135deg, #d57e2b, #a35411)",
+    poison:    "linear-gradient(135deg, #c55cff, #7b1fa2)",
+    ground:    "linear-gradient(135deg, #e4c46b, #c19a38)",
+    flying:    "linear-gradient(135deg, #88b9ff, #577dff)",
+    psychic:   "linear-gradient(135deg, #ff6ce5, #d10fd1)",
+    bug:       "linear-gradient(135deg, #a0d957, #7abf26)",
+    rock:      "linear-gradient(135deg, #d6bc74, #9d843b)",
+    ghost:     "linear-gradient(135deg, #a97cff, #6d49c6)",
+    dragon:    "linear-gradient(135deg, #8e6cff, #4b2fff)",
+    dark:      "linear-gradient(135deg, #7a5c5c, #3a2c2c)",
+    steel:     "linear-gradient(135deg, #c7d4e0, #82929c)",
+    fairy:     "linear-gradient(135deg, #ffbde3, #ff75c7)"
+};
+
 async function loadPokemonData(front, id) {
     try {
         const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
@@ -87,6 +109,9 @@ async function loadPokemonData(front, id) {
         const numberEl = front.querySelector("[data-number]");
         const marco = front.querySelector(".marco");
 
+        /* -------------------------------
+           SHINY ALEATORIO (10%)
+        ------------------------------- */
         const isShiny = Math.random() < 0.10;
 
         const spriteSource = isShiny
@@ -104,6 +129,15 @@ async function loadPokemonData(front, id) {
         marco.src = isShiny
             ? "assets/Formato_shiny.png"
             : "assets/Formato.png";
+
+        /* -------------------------------
+           FONDO SEGÚN TIPO
+        ------------------------------- */
+        const type = data.types[0].type.name; // tipo principal
+        const background = typeBackgrounds[type] || "linear-gradient(#ccc,#888)";
+
+        // Aplicamos el fondo al front (debajo del marco)
+        front.style.background = background;
 
     } catch (e) {
         console.error("Error cargando Pokémon", e);
