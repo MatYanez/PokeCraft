@@ -158,29 +158,23 @@ function centerNearestCard() {
     animateScroll(scrollArea.scrollLeft, targetLeft, 450); // 450ms suavidad
 }
 
-function centerNearestCard() {
-    const cards = Array.from(scrollArea.children);
-    const scrollCenter = scrollArea.scrollLeft + scrollArea.clientWidth / 2;
+function animateScroll(from, to, duration) {
+    const start = performance.now();
 
-    let closestCard = null;
-    let smallestDistance = Infinity;
+    function frame(now) {
+        const progress = Math.min((now - start) / duration, 1);
 
-    cards.forEach(card => {
-        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-        const distance = Math.abs(cardCenter - scrollCenter);
-        if (distance < smallestDistance) {
-            smallestDistance = distance;
-            closestCard = card;
+        // EASING orgánico tipo "easeOutCubic"
+        const eased = 1 - Math.pow(1 - progress, 3);
+
+        scrollArea.scrollLeft = from + (to - from) * eased;
+
+        if (progress < 1) {
+            requestAnimationFrame(frame);
         }
-    });
+    }
 
-    if (!closestCard) return;
-
-    const targetLeft =
-        closestCard.offsetLeft -
-        (scrollArea.clientWidth / 2 - closestCard.clientWidth / 2);
-
-    animateScroll(scrollArea.scrollLeft, targetLeft, 450); // 450ms suavidad
+    requestAnimationFrame(frame);
 }
 
 
