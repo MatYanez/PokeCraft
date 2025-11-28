@@ -191,3 +191,20 @@ height: calc(100vh - 120px);
     width: 100vw;
 }
 
+
+
+
+.front::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    pointer-events: none;
+    z-index: 0;
+
+    background: radial-gradient(
+        circle at 50% 30%,
+        rgba(255,255,255,0.45),
+        transparent 60%
+    );
+}
