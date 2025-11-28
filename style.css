@@ -295,3 +295,78 @@ height: calc(100vh - 120px);
 
 
 
+/* BOTÓN DE LIMPIEZA */
+.reset-button {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    font-size: 32px;
+    cursor: pointer;
+    z-index: 9999;
+    background: rgba(255,255,255,0.8);
+    padding: 8px 12px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    transition: 0.2s;
+}
+.reset-button:hover {
+    background: white;
+}
+
+/* MODAL */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    width: 320px;
+    border-radius: 12px;
+    text-align: center;
+    font-family: sans-serif;
+    animation: pop 0.2s ease-out;
+}
+
+@keyframes pop {
+    from { transform: scale(0.85); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.modal-buttons {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal-buttons button {
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+}
+
+.confirm {
+    background: #e53935;
+    color: white;
+}
+.cancel {
+    background: #ddd;
+}
+
+
+
