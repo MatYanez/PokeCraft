@@ -1,19 +1,29 @@
+/* ========================= */
+/*     FUENTE PERSONALIZADA */
+/* ========================= */
+
+@font-face {
+    font-family: "MiFuente";
+    src: url("/assets/Gill\ Sans\ Bold.otf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     margin: 0;
     background: #111;
     overflow: hidden;
-    font-family: sans-serif;
+    font-family: "MiFuente", sans-serif;
 }
 
-/* ======================= */
-/*    CARRUSEL GENERAL     */
-/* ======================= */
+/* ========================= */
+/*    CARRUSEL HORIZONTAL   */
+/* ========================= */
 
 .scroll-area {
     display: flex;
     gap: 20px;
 
-    /* deja ver un pedacito de cartas a los lados */
     padding-left: calc(50vw - 160px);
     padding-right: calc(50vw - 160px);
 
@@ -30,9 +40,9 @@ body {
     display: none;
 }
 
-/* ======================= */
-/*        CARTA BASE       */
-/* ======================= */
+/* ========================= */
+/*        CARTA BASE        */
+/* ========================= */
 
 .card {
     width: 320px;
@@ -73,109 +83,29 @@ body {
 
 .front {
     transform: rotateY(180deg);
-    background-size: cover;
-    background-position: center;
-    border: 3px solid gold;
+    position: relative;
+    overflow: hidden;
 }
 
-/* ======================= */
-/*  DISEÑO DE LA CARTA     */
-/* ======================= */
+/* ========================= */
+/*     IMAGEN + MARCO       */
+/* ========================= */
 
-.card-frame {
+.pokemon-art {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background: #f3c64b; /* borde amarillo */
-    border-radius: 20px;
-    padding: 20px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
+    object-fit: cover;
+    border-radius: 18px;
 }
 
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(#c3c3c3, #878787);
-    height: 60px;
-    border-radius: 10px;
-    padding: 0 15px;
-}
-
-.tag {
-    font-weight: bold;
-    color: #333;
-}
-
-.name {
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.stats {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.hp {
-    font-weight: bold;
-}
-
-.type-icon {
-    width: 26px;
-    height: 26px;
-}
-
-.card-art {
-    flex: 1;
-    background: #00d42b;
-    border-radius: 16px;
-    margin-top: 12px;
-    background-size: cover;
-    background-position: center;
-}
-
-.card-body {
-    margin-top: 15px;
-}
-
-.ability {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.cost img {
-    width: 28px;
-}
-
-.move-name {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.description {
-    margin-top: 5px;
-    font-size: 18px;
-}
-
-.card-footer {
-    margin-top: auto;
-    font-size: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.collector {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.smallball {
-    width: 17px;
-    opacity: 0.8;
+.marco {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* para que clickee igual */
 }
