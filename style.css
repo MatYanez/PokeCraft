@@ -137,3 +137,19 @@ body {
     z-index: 9999;       /* encima del marco */
     pointer-events: none;
 }
+
+.pokeballs {
+    position: absolute;
+    bottom: 20px;      /* ajusta según tu marco */
+    left: 25px;        /* mueve más a la izquierda si quieres */
+    display: flex;
+    gap: 8px;          /* espacio entre pokébolas */
+    z-index: 9999;     /* por encima del marco */
+    pointer-events: none;
+}
+
+.ball {
+    width: 32px;       /* ajusta tamaño si quieres */
+    height: 32px;
+    opacity: 0.95;
+}
