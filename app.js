@@ -138,3 +138,42 @@ function setupCircularScroll() {
 createCards(10);
 setupCircularScroll();
 console.log("Sistema listo ✔");
+
+
+function centerNearestCard() {
+    const scroll = document.getElementById("scroll");
+    const cards = Array.from(scroll.children);
+
+    const scrollCenter = scroll.scrollLeft + scroll.clientWidth / 2;
+
+    let closestCard = null;
+    let smallestDistance = Infinity;
+
+    cards.forEach(card => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const distance = Math.abs(cardCenter - scrollCenter);
+
+        if (distance < smallestDistance) {
+            smallestDistance = distance;
+            closestCard = card;
+        }
+    });
+
+    if (closestCard) {
+        const target = closestCard.offsetLeft - (scroll.clientWidth / 2 - closestCard.clientWidth / 2);
+        scroll.scrollTo({
+            left: target,
+            behavior: "smooth"
+        });
+    }
+}
+
+let scrollTimeout;
+
+scroll.addEventListener("scroll", () => {
+    clearTimeout(scrollTimeout);
+
+    scrollTimeout = setTimeout(() => {
+        centerNearestCard();
+    }, 130);  // tiempo ideal
+});
