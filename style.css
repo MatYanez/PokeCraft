@@ -334,7 +334,7 @@ height: calc(100vh - 120px);
 .modal-content {
     background: white;
     padding: 25px;
-    width: 320px;
+    width: 620px;
     border-radius: 12px;
     text-align: center;
     font-family: sans-serif;
@@ -353,11 +353,14 @@ height: calc(100vh - 120px);
 }
 
 .modal-buttons button {
-    padding: 10px 15px;
+    padding: 22px 15px;
     border-radius: 8px;
     font-size: 15px;
     cursor: pointer;
     border: none;
+        width: 40%;
+            font-size: 2rem;
+
 }
 
 .confirm {
