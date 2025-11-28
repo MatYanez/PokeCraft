@@ -116,11 +116,11 @@ body {
     position: absolute;
     top: 25px;              /* ajústalo según el marco */
     width: 100%;
-    text-align: center;
-    font-size: 50px;        /* hazlo grande */
+    font-size: 48px;        /* hazlo grande */
     font-weight: bold;
     color: white;
     text-shadow: 3px 3px 8px #000;
     z-index: 9999;          /* 🔥 SUPER IMPORTANTE */
     pointer-events: none;
+        left: 24%;
 }
