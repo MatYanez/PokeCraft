@@ -206,14 +206,6 @@ height: calc(100vh - 120px);
     );
 }
 
-
-
-
-
-
-
-
-
 .front {
     position: relative;
     overflow: hidden;
@@ -237,4 +229,20 @@ height: calc(100vh - 120px);
     );
 
     mix-blend-mode: overlay;
+}
+
+
+
+
+.front {
+    backdrop-filter: contrast(1.2) brightness(1.1);
+    background-blend-mode: overlay;
+}
+
+.front {
+    background-image:
+        url("assets/textura.png"),
+        var(--tipo-degradado);
+    background-size: cover, cover;
+    background-blend-mode: soft-light;
 }
