@@ -1,96 +1,118 @@
-const scroll = document.getElementById("scroll");
-const cardSize = 685;
-let isAdjusting = false;
+console.log("app.js cargado ✔");
 
-/* ==========================
-   SCROLL INFINITO CIRCULAR
-   ========================== */
-scroll.addEventListener("scroll", () => {
-    if (isAdjusting) return;
+/* =====================================================
+   1. FUNCIÓN: CREAR UNA CARTA
+   ===================================================== */
+function createCard() {
+    const card = document.createElement("div");
+    card.className = "card";
 
-    const position = scroll.scrollLeft;
-    const maxScroll = scroll.scrollWidth - scroll.clientWidth;
+    const inner = document.createElement("div");
+    inner.className = "inner";
 
-    scroll.style.scrollSnapType = "none";
+    const back = document.createElement("div");
+    back.className = "back";
 
-    if (position >= maxScroll - cardSize) {
-        isAdjusting = true;
+    const front = document.createElement("div");
+    front.className = "front";
 
-        const first = scroll.children[0];
-        scroll.appendChild(first);
+    // CONTENIDO DEL FRONT (IMAGEN + MARCO PNG)
+    front.innerHTML = `
+        <img class="pokemon-art" data-art />
+        <img class="marco" src="assets/Formato.png" />
+    `;
 
-        scroll.scrollLeft -= cardSize;
-        isAdjusting = false;
+    // Evento flip
+    inner.addEventListener("click", () => {
+        inner.classList.toggle("flipped");
+    });
 
-        scroll.style.scrollSnapType = "x mandatory";
-    }
+    // ARMAR CARTA
+    inner.appendChild(back);
+    inner.appendChild(front);
+    card.appendChild(inner);
 
-    if (position <= cardSize) {
-        isAdjusting = true;
+    // Cargar Pokémon aleatorio
+    const id = Math.floor(Math.random() * 151) + 1;
+    loadPokemonData(front, id);
 
-        const last = scroll.children[scroll.children.length - 1];
-        scroll.prepend(last);
+    return card;
+}
 
-        scroll.scrollLeft += cardSize;
-        isAdjusting = false;
-
-        scroll.style.scrollSnapType = "x mandatory";
-    }
-});
-
-/* ==========================
-       CREAR CARTAS
-   ========================== */
-
+/* =====================================================
+   2. FUNCIÓN: CREAR VARIAS CARTAS
+   ===================================================== */
 function createCards(amount = 10) {
+    const scroll = document.getElementById("scroll");
+
+    console.log("Creando cartas…");
+
     for (let i = 0; i < amount; i++) {
-        const card = document.createElement("div");
-        card.className = "card";
+        const carta = createCard();
+        scroll.appendChild(carta);
+    }
 
-        const inner = document.createElement("div");
-        inner.className = "inner";
+    console.log("Cartas creadas ✔");
+}
 
-        const back = document.createElement("div");
-        back.className = "back";
+/* =====================================================
+   3. FUNCIÓN: CARGAR DATOS DEL POKÉMON
+   ===================================================== */
+async function loadPokemonData(front, id) {
+    try {
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+        const data = await res.json();
 
-        const front = document.createElement("div");
-        front.className = "front";
+        const art = front.querySelector("[data-art]");
 
-        /* --- CONTENIDO DEL FRONT (SOLO IMAGEN + MARCO) --- */
-        front.innerHTML = `
-            <img class="pokemon-art" data-art />
-            <img class="marco" src="assets/Formato.png" />
-        `;
+        // Imagen oficial del pokémon
+        art.src = data.sprites.other["official-artwork"].front_default;
 
-        card.addEventListener("click", () => {
-            inner.classList.toggle("flipped");
-        });
-
-        inner.appendChild(back);
-        inner.appendChild(front);
-        scroll.appendChild(card);
-
-        /* Pokemon aleatorio */
-        const randomId = Math.floor(Math.random() * 151) + 1;
-        loadPokemonData(front, randomId);
+    } catch (e) {
+        console.error("Error cargando Pokémon", e);
     }
 }
 
-createCards();
+/* =====================================================
+   4. SCROLL INFINITO CIRCULAR 
+   ===================================================== */
+function setupCircularScroll() {
+    const scroll = document.getElementById("scroll");
+    const cardSize = 685;
+    let isAdjusting = false;
 
-/* ==========================
-  CARGAR DATOS DE POKÉAPI
-   ========================== */
+    scroll.addEventListener("scroll", () => {
+        if (isAdjusting) return;
 
-async function loadPokemonData(front, id) {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-    const data = await res.json();
+        const position = scroll.scrollLeft;
+        const maxScroll = scroll.scrollWidth - scroll.clientWidth;
 
-    /* Selecciona la imagen */
-    const art = front.querySelector("[data-art]");
+        // Desactiva snap temporalmente
+        scroll.style.scrollSnapType = "none";
 
-    /* Arte oficial */
-art.src = data.sprites.front_default;
+        // Mover primera carta al final
+        if (position >= maxScroll - cardSize) {
+            isAdjusting = true;
+            scroll.appendChild(scroll.children[0]);
+            scroll.scrollLeft -= cardSize;
+            isAdjusting = false;
+            scroll.style.scrollSnapType = "x mandatory";
+        }
+
+        // Mover última carta al inicio
+        if (position <= cardSize) {
+            isAdjusting = true;
+            scroll.prepend(scroll.children[scroll.children.length - 1]);
+            scroll.scrollLeft += cardSize;
+            isAdjusting = false;
+            scroll.style.scrollSnapType = "x mandatory";
+        }
+    });
 }
 
-
+/* =====================================================
+   5. INICIALIZAR TODO
+   ===================================================== */
+createCards(10);
+setupCircularScroll();
+console.log("Sistema listo ✔");
