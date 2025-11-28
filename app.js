@@ -37,6 +37,11 @@ function createCard() {
     const id = Math.floor(Math.random() * 151) + 1;
     loadPokemonData(front, id);
 
+    const nameEl = front.querySelector("[data-name]");
+nameEl.textContent =
+    data.name.charAt(0).toUpperCase() + data.name.slice(1);
+
+
     return card;
 }
 
