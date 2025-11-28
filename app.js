@@ -37,16 +37,22 @@ function createCard(id) {
     const front = document.createElement("div");
     front.className = "front";
 
-    front.innerHTML = `
-        <div class="pokemon-name" data-name></div>
-        <img class="pokemon-art" data-art />
-        <div class="pokedex-number" data-number></div>
-        <div class="pokeballs">
-            <img src="assets/pokeball.png" class="ball">
-            <img src="assets/pokeball.png" class="ball">
-        </div>
-        <img class="marco" src="assets/Formato.png" />
-    `;
+front.innerHTML = `
+    <div class="type-badge" data-type-badge></div>
+
+    <div class="pokemon-name" data-name></div>
+
+    <img class="pokemon-art" data-art />
+
+    <div class="pokedex-number" data-number></div>
+
+    <div class="pokeballs">
+        <img src="assets/pokeball.png" class="ball">
+        <img src="assets/pokeball.png" class="ball">
+    </div>
+
+    <img class="marco" src="assets/Formato.png" />
+`;
 
     overrideCardFlip(inner);
 
