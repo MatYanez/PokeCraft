@@ -155,26 +155,30 @@ body {
 }
 
 .controls {
-    position: fixed;
-    bottom: 40px;
-    width: 100%;
+    position: absolute;
+    bottom: -80px; /* justo debajo de las cartas */
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    justify-content: center;
     gap: 20px;
-    z-index: 999999;
+    z-index: 5000;
+    transition: opacity 0.3s ease;
+    opacity: 1;
 }
 
 .controls.hidden {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .controls button {
     font-size: 22px;
-    padding: 15px 28px;
+    padding: 14px 26px;
     border-radius: 12px;
     font-weight: bold;
     border: none;
     background: #ffcb05;
     color: #222;
     box-shadow: 0 4px 10px #0008;
+    cursor: pointer;
 }
