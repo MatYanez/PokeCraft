@@ -153,3 +153,28 @@ body {
     height: 70px;
     opacity: 0.95;
 }
+
+.controls {
+    position: fixed;
+    bottom: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    z-index: 999999;
+}
+
+.controls.hidden {
+    display: none;
+}
+
+.controls button {
+    font-size: 22px;
+    padding: 15px 28px;
+    border-radius: 12px;
+    font-weight: bold;
+    border: none;
+    background: #ffcb05;
+    color: #222;
+    box-shadow: 0 4px 10px #0008;
+}
