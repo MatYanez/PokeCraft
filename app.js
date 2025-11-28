@@ -80,7 +80,7 @@ function createCards() {
 
 const typeBackgrounds = {
     normal:    "linear-gradient(135deg, #cfcfcf, #9e9e9e)",
-    fire:      "linear-gradient(135deg, #ff9a3c, #ff3c00)",
+    fire:      "linear-gradient(135deg, #e9ad74, #e9592c)",
     water:     "linear-gradient(135deg, #cbe2f9, #093e99)",
     electric:  "linear-gradient(135deg, #ffe13c, #ffb800)",
     grass:     "linear-gradient(135deg, #7ed957, #2ba84a)",
@@ -131,18 +131,28 @@ async function loadPokemonData(front, id) {
             : "assets/Formato.png";
 
         /* -------------------------------
-           FONDO SEGÚN TIPO
+           AGREGAR POKEBOLA MASTER SI ES SHINY
         ------------------------------- */
-        const type = data.types[0].type.name; // tipo principal
-        const background = typeBackgrounds[type] || "linear-gradient(#ccc,#888)";
+        const balls = front.querySelector(".pokeballs");
 
-        // Aplicamos el fondo al front (debajo del marco)
-        front.style.background = background;
+        // Primero limpia posibles restos (por seguridad)
+        balls.innerHTML = `
+            <img src="assets/pokeball.png" class="ball">
+            <img src="assets/pokeball.png" class="ball">
+        `;
+
+        if (isShiny) {
+            const master = document.createElement("img");
+            master.src = "assets/pokeball_master.png";
+            master.className = "ball";
+            balls.appendChild(master);
+        }
 
     } catch (e) {
         console.error("Error cargando Pokémon", e);
     }
 }
+
 
 /* =====================================================
    4. SCROLL INFINITO CIRCULAR
