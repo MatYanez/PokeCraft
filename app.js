@@ -110,24 +110,24 @@ const typeBackgrounds = {
 ===================================================== */
 
 const typeBadgeInfo = {
-    fire:      { color: "#ff6b3c", icon: "assets/types/fire.png" },
-    water:     { color: "#3ca0ff", icon: "assets/types/water.png" },
-    electric:  { color: "#ffd93c", icon: "assets/types/electric.png" },
-    grass:     { color: "#7ed957", icon: "assets/types/grass.png" },
-    psychic:   { color: "#ff6ce5", icon: "assets/types/psychic.png" },
-    ghost:     { color: "#a87cff", icon: "assets/types/ghost.png" },
-    dragon:    { color: "#8e6cff", icon: "assets/types/dragon.png" },
-    dark:      { color: "#5a4a4a", icon: "assets/types/dark.png" },
-    steel:     { color: "#8ea0ad", icon: "assets/types/steel.png" },
-    rock:      { color: "#c6ad6b", icon: "assets/types/rock.png" },
-    ground:    { color: "#d4b46d", icon: "assets/types/ground.png" },
-    ice:       { color: "#9ae7ff", icon: "assets/types/ice.png" },
-    flying:    { color: "#9fb9ff", icon: "assets/types/flying.png" },
-    poison:    { color: "#b55cff", icon: "assets/types/poison.png" },
-    bug:       { color: "#a4d957", icon: "assets/types/bug.png" },
-    fighting:  { color: "#c56b2d", icon: "assets/types/fighting.png" },
-    normal:    { color: "#cfcfcf", icon: "assets/types/normal.png" },
-    fairy:     { color: "#ffbde3", icon: "assets/types/fairy.png" }
+    fire:      { color: "#ff6b3c", icon: "assets/types/Fire.png" },
+    water:     { color: "#3ca0ff", icon: "assets/types/Water.png" },
+    electric:  { color: "#ffd93c", icon: "assets/types/Electric.png" },
+    grass:     { color: "#7ed957", icon: "assets/types/Grass.png" },
+    psychic:   { color: "#ff6ce5", icon: "assets/types/Psychic.png" },
+    ghost:     { color: "#a87cff", icon: "assets/types/Ghost.png" },
+    dragon:    { color: "#8e6cff", icon: "assets/types/Dragon.png" },
+    dark:      { color: "#5a4a4a", icon: "assets/types/Dark.png" },
+    steel:     { color: "#8ea0ad", icon: "assets/types/Steel.png" },
+    rock:      { color: "#c6ad6b", icon: "assets/types/Rock.png" },
+    ground:    { color: "#d4b46d", icon: "assets/types/Ground.png" },
+    ice:       { color: "#9ae7ff", icon: "assets/types/Ice.png" },
+    flying:    { color: "#9fb9ff", icon: "assets/types/Flying.png" },
+    poison:    { color: "#b55cff", icon: "assets/types/Poison.png" },
+    bug:       { color: "#a4d957", icon: "assets/types/Bug.png" },
+    fighting:  { color: "#c56b2d", icon: "assets/types/Fighting.png" },
+    normal:    { color: "#cfcfcf", icon: "assets/types/Normal.png" },
+    fairy:     { color: "#ffbde3", icon: "assets/types/Fairy.png" }
 };
 
 async function loadPokemonData(front, id) {
