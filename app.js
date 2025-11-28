@@ -48,10 +48,7 @@ function createCard(id) {
         <img class="marco" src="assets/Formato.png" />
     `;
 
-    // Flip
-    inner.addEventListener("click", () => {
-        inner.classList.toggle("flipped");
-    });
+    overrideCardFlip(inner);
 
     inner.appendChild(back);
     inner.appendChild(front);
@@ -88,28 +85,25 @@ async function loadPokemonData(front, id) {
         const art = front.querySelector("[data-art]");
         const nameEl = front.querySelector("[data-name]");
         const numberEl = front.querySelector("[data-number]");
+        const marco = front.querySelector(".marco");
 
-        /* -------------------------------
-           SHINY ALEATORIO (10% PROBABILIDAD)
-           ------------------------------- */
-        const isShiny = Math.random() < 0.10; // 10% chance
-        const spriteSource = isShiny 
+        const isShiny = Math.random() < 0.10;
+
+        const spriteSource = isShiny
             ? data.sprites.other["official-artwork"].front_shiny
             : data.sprites.other["official-artwork"].front_default;
 
-        const marco = front.querySelector(".marco");
-        marco.src = isShiny ? "assets/Formato_shiny.png" : "assets/Formato.png";
-
-        // Imagen (normal o shiny)
         art.src = spriteSource;
 
-        // Nombre
         nameEl.textContent =
             data.name.charAt(0).toUpperCase() + data.name.slice(1) +
             (isShiny ? " ✨" : "");
 
-        // Número Pokédex
         numberEl.textContent = "#" + String(data.id).padStart(3, "0");
+
+        marco.src = isShiny
+            ? "assets/Formato_shiny.png"
+            : "assets/Formato.png";
 
     } catch (e) {
         console.error("Error cargando Pokémon", e);
@@ -124,7 +118,7 @@ function setupCircularScroll() {
     let isAdjusting = false;
 
     scrollArea.addEventListener("scroll", () => {
-        if (isAdjusting) return;
+        if (isAdjusting || interactionsLocked) return; // ← bloquea en modo turno
 
         const position = scrollArea.scrollLeft;
         const maxScroll = scrollArea.scrollWidth - scrollArea.clientWidth;
@@ -153,6 +147,8 @@ function setupCircularScroll() {
    5. AUTOCENTRADO ORGÁNICO
 ===================================================== */
 function centerNearestCard() {
+    if (interactionsLocked) return;
+
     const cards = Array.from(scrollArea.children);
     const scrollCenter = scrollArea.scrollLeft + scrollArea.clientWidth / 2;
 
@@ -182,7 +178,7 @@ function animateScroll(from, to, duration) {
 
     function frame(now) {
         const progress = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+        const eased = 1 - Math.pow(1 - progress, 3);  
         scrollArea.scrollLeft = from + (to - from) * eased;
         if (progress < 1) requestAnimationFrame(frame);
     }
@@ -197,41 +193,28 @@ scrollArea.addEventListener("scroll", () => {
     scrollTimeout = setTimeout(centerNearestCard, 150);
 });
 
+/* =====================================================
+   6. SISTEMA DE TURNOS (BLOQUEO / BOTONES)
+===================================================== */
 
-function overrideCardFlip(inner) {
-    inner.addEventListener("click", () => {
+let selectedCard = null;
+let interactionsLocked = false;
 
-        // Si está bloqueado y NO es la carta seleccionada → ignorar
-        if (interactionsLocked && selectedCard !== inner) return;
+const controls = document.getElementById("controls");
+const btnHide = document.getElementById("btnHide");
+const btnNext = document.getElementById("btnNext");
 
-        // Si está bloqueado Y es la carta seleccionada → permitir re-abrirla
-        if (interactionsLocked && selectedCard === inner) {
-            flipCard(inner, "front");
-            return;
-        }
-
-        // Si no está bloqueado → primera vez que se abre
-        inner.classList.add("flipped");
-        selectedCard = inner;
-        lockInteractions();
-    });
+function lockInteractions() {
+    interactionsLocked = true;
+    scrollArea.style.pointerEvents = "none";
+    controls.classList.remove("hidden");
 }
 
-btnNext.addEventListener("click", () => {
-    if (!selectedCard) return;
-
-    const card = selectedCard.parentElement;
-
-    // Boca abajo
-    flipCard(selectedCard, "back");
-
-    setTimeout(() => {
-        card.remove();       // eliminar carta
-        selectedCard = null; // limpiar
-        unlockInteractions();// desbloquear todo
-    }, 350);
-});
-
+function unlockInteractions() {
+    interactionsLocked = false;
+    scrollArea.style.pointerEvents = "auto";
+    controls.classList.add("hidden");
+}
 
 function flipCard(inner, state) {
     if (state === "front") {
@@ -241,15 +224,47 @@ function flipCard(inner, state) {
     }
 }
 
+function overrideCardFlip(inner) {
+    inner.addEventListener("click", () => {
 
+        if (interactionsLocked && selectedCard !== inner) return;
 
+        if (interactionsLocked && selectedCard === inner) {
+            flipCard(inner, "front");
+            return;
+        }
 
+        inner.classList.add("flipped");
+        selectedCard = inner;
+        lockInteractions();
+    });
+}
 
+btnHide.addEventListener("click", () => {
+    if (!selectedCard) return;
 
+    flipCard(selectedCard, "back");
+
+    // NO desbloquear
+});
+
+btnNext.addEventListener("click", () => {
+    if (!selectedCard) return;
+
+    const card = selectedCard.parentElement;
+
+    flipCard(selectedCard, "back");
+
+    setTimeout(() => {
+        card.remove();
+        selectedCard = null;
+        unlockInteractions();
+    }, 350);
+});
 
 /* =====================================================
-   6. INICIALIZAR TODO
+   7. INICIALIZAR TODO
 ===================================================== */
-createCards();          // ← ahora carga 151 mezclados
+createCards();
 setupCircularScroll();
 console.log("Sistema listo ✔");
