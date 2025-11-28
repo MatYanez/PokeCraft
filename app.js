@@ -18,8 +18,9 @@ function createCard() {
 
     // CONTENIDO DEL FRONT (IMAGEN + MARCO PNG)
     front.innerHTML = `
-        <img class="pokemon-art" data-art />
-        <img class="marco" src="assets/Formato.png" />
+    <div class="pokemon-name" data-name></div>
+    <img class="pokemon-art" data-art />
+    <img class="marco" src="assets/Formato.png" />
     `;
 
     // Evento flip
