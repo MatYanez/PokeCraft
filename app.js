@@ -6,9 +6,25 @@ console.log("app.js cargado ✔");
 const scrollArea = document.getElementById("scroll");
 
 /* =====================================================
-   1. FUNCIÓN: CREAR UNA CARTA
+   ARRAY CON LOS 151 POKÉMON ORDENADOS
 ===================================================== */
-function createCard() {
+const kantoIDs = Array.from({ length: 151 }, (_, i) => i + 1);
+
+/* =====================================================
+   SHUFFLE (MEZCLA ALEATORIA SIN REPETIR)
+===================================================== */
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+/* =====================================================
+   1. CREAR UNA CARTA (RECIBE ID ESPECÍFICO)
+===================================================== */
+function createCard(id) {
     const card = document.createElement("div");
     card.className = "card";
 
@@ -21,19 +37,14 @@ function createCard() {
     const front = document.createElement("div");
     front.className = "front";
 
-    // CONTENIDO DEL FRONT
     front.innerHTML = `
         <div class="pokemon-name" data-name></div>
-
         <img class="pokemon-art" data-art />
-
         <div class="pokedex-number" data-number></div>
-
         <div class="pokeballs">
             <img src="assets/pokeball.png" class="ball">
             <img src="assets/pokeball.png" class="ball">
         </div>
-
         <img class="marco" src="assets/Formato.png" />
     `;
 
@@ -42,33 +53,32 @@ function createCard() {
         inner.classList.toggle("flipped");
     });
 
-    // Armar carta
     inner.appendChild(back);
     inner.appendChild(front);
     card.appendChild(inner);
 
-    // Pokemon random
-    const id = Math.floor(Math.random() * 151) + 1;
     loadPokemonData(front, id);
 
     return card;
 }
 
 /* =====================================================
-   2. CREAR MUCHAS CARTAS
+   2. CREAR LAS 151 CARTAS EN ORDEN ALEATORIO
 ===================================================== */
-function createCards(amount = 10) {
+function createCards() {
     console.log("Creando cartas…");
 
-    for (let i = 0; i < amount; i++) {
-        scrollArea.appendChild(createCard());
-    }
+    const randomOrder = shuffle([...kantoIDs]);
 
-    console.log("Cartas creadas ✔");
+    randomOrder.forEach(id => {
+        scrollArea.appendChild(createCard(id));
+    });
+
+    console.log("Cartas creadas (151 pokémon aleatorios) ✔");
 }
 
 /* =====================================================
-   3. CARGAR DATOS DEL POKEMON
+   3. CARGAR DATOS DEL POKÉMON + MODO SHINY
 ===================================================== */
 async function loadPokemonData(front, id) {
     try {
@@ -79,14 +89,23 @@ async function loadPokemonData(front, id) {
         const nameEl = front.querySelector("[data-name]");
         const numberEl = front.querySelector("[data-number]");
 
-        // Imagen
-        art.src = data.sprites.other["official-artwork"].front_default;
+        /* -------------------------------
+           SHINY ALEATORIO (10% PROBABILIDAD)
+           ------------------------------- */
+        const isShiny = Math.random() < 0.10; // 10% chance
+        const spriteSource = isShiny 
+            ? data.sprites.other["official-artwork"].front_shiny
+            : data.sprites.other["official-artwork"].front_default;
+
+        // Imagen (normal o shiny)
+        art.src = spriteSource;
 
         // Nombre
         nameEl.textContent =
-            data.name.charAt(0).toUpperCase() + data.name.slice(1);
+            data.name.charAt(0).toUpperCase() + data.name.slice(1) +
+            (isShiny ? " ✨" : "");
 
-        // Número Pokedex
+        // Número Pokédex
         numberEl.textContent = "#" + String(data.id).padStart(3, "0");
 
     } catch (e) {
@@ -107,10 +126,8 @@ function setupCircularScroll() {
         const position = scrollArea.scrollLeft;
         const maxScroll = scrollArea.scrollWidth - scrollArea.clientWidth;
 
-        // Desactivar snap
         scrollArea.style.scrollSnapType = "none";
 
-        // Mover primera carta al final
         if (position >= maxScroll - cardSize) {
             isAdjusting = true;
             scrollArea.appendChild(scrollArea.children[0]);
@@ -119,7 +136,6 @@ function setupCircularScroll() {
             scrollArea.style.scrollSnapType = "x mandatory";
         }
 
-        // Mover última carta al inicio
         if (position <= cardSize) {
             isAdjusting = true;
             scrollArea.prepend(scrollArea.children[scrollArea.children.length - 1]);
@@ -131,7 +147,7 @@ function setupCircularScroll() {
 }
 
 /* =====================================================
-   5. AUTOCENTRADO
+   5. AUTOCENTRADO ORGÁNICO
 ===================================================== */
 function centerNearestCard() {
     const cards = Array.from(scrollArea.children);
@@ -155,7 +171,7 @@ function centerNearestCard() {
         closestCard.offsetLeft -
         (scrollArea.clientWidth / 2 - closestCard.clientWidth / 2);
 
-    animateScroll(scrollArea.scrollLeft, targetLeft, 450); // 450ms suavidad
+    animateScroll(scrollArea.scrollLeft, targetLeft, 450);
 }
 
 function animateScroll(from, to, duration) {
@@ -163,20 +179,13 @@ function animateScroll(from, to, duration) {
 
     function frame(now) {
         const progress = Math.min((now - start) / duration, 1);
-
-        // EASING orgánico tipo "easeOutCubic"
-        const eased = 1 - Math.pow(1 - progress, 3);
-
+        const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
         scrollArea.scrollLeft = from + (to - from) * eased;
-
-        if (progress < 1) {
-            requestAnimationFrame(frame);
-        }
+        if (progress < 1) requestAnimationFrame(frame);
     }
 
     requestAnimationFrame(frame);
 }
-
 
 let scrollTimeout = null;
 
@@ -188,6 +197,6 @@ scrollArea.addEventListener("scroll", () => {
 /* =====================================================
    6. INICIALIZAR TODO
 ===================================================== */
-createCards(10);
+createCards();          // ← ahora carga 151 mezclados
 setupCircularScroll();
 console.log("Sistema listo ✔");
