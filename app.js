@@ -106,7 +106,7 @@ function setupCircularScroll() {
     scroll.addEventListener("scroll", () => {
         if (isAdjusting) return;
 
-        const position = scroll.scrollLeft;
+        const position = scrollArea.scrollLeft;
         const maxScroll = scroll.scrollWidth - scroll.clientWidth;
 
         // Desactiva snap temporalmente
@@ -141,10 +141,10 @@ console.log("Sistema listo ✔");
 
 
 function centerNearestCard() {
-    const scroll = document.getElementById("scroll");
-    const cards = Array.from(scroll.children);
+    const scrollArea = document.getElementById("scroll");
+    const cards = Array.from(scrollArea.children);
 
-    const scrollCenter = scroll.scrollLeft + scroll.clientWidth / 2;
+    const scrollCenter = scrollArea.scrollLeft + scrollArea.clientWidth / 2;
 
     let closestCard = null;
     let smallestDistance = Infinity;
@@ -160,8 +160,8 @@ function centerNearestCard() {
     });
 
     if (closestCard) {
-        const target = closestCard.offsetLeft - (scroll.clientWidth / 2 - closestCard.clientWidth / 2);
-        scroll.scrollTo({
+        const target = closestCard.offsetLeft - (scrollArea.clientWidth / 2 - closestCard.clientWidth / 2);
+        scrollArea.scrollTo({
             left: target,
             behavior: "smooth"
         });
@@ -170,10 +170,10 @@ function centerNearestCard() {
 
 let scrollTimeout;
 
-scroll.addEventListener("scroll", () => {
+scrollArea.addEventListener("scroll", () => {
     clearTimeout(scrollTimeout);
-
     scrollTimeout = setTimeout(() => {
         centerNearestCard();
-    }, 130);  // tiempo ideal
+    }, 130);
 });
+
