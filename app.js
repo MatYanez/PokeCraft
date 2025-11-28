@@ -37,11 +37,7 @@ function createCard() {
     const id = Math.floor(Math.random() * 151) + 1;
     loadPokemonData(front, id);
 
-    const nameEl = front.querySelector("[data-name]");
-nameEl.textContent =
-    data.name.charAt(0).toUpperCase() + data.name.slice(1);
-
-
+    
     return card;
 }
 
@@ -69,15 +65,22 @@ async function loadPokemonData(front, id) {
         const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
         const data = await res.json();
 
+        // Seleccionamos los elementos
         const art = front.querySelector("[data-art]");
+        const nameEl = front.querySelector("[data-name]");
 
-        // Imagen oficial del pokémon
+        // Asignamos imagen
         art.src = data.sprites.other["official-artwork"].front_default;
+
+        // Asignamos nombre → 🔥 VA AQUÍ
+        nameEl.textContent =
+            data.name.charAt(0).toUpperCase() + data.name.slice(1);
 
     } catch (e) {
         console.error("Error cargando Pokémon", e);
     }
 }
+
 
 /* =====================================================
    4. SCROLL INFINITO CIRCULAR 
