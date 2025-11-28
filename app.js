@@ -94,19 +94,3 @@ art.src = data.sprites.front_default;
 }
 
 
-console.log("app.js cargado ✔");
-
-function createCards() {
-    const scroll = document.getElementById("scroll");
-    for (let i = 0; i < 5; i++) {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-            <div style="background:red;width:100%;height:100%;border-radius:18px;">
-            CARD ${i}
-            </div>`;
-        scroll.appendChild(card);
-    }
-}
-
-createCards();
