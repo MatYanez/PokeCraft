@@ -114,7 +114,7 @@ body {
 
 .pokemon-name {
     position: absolute;
-    top: 25px;              /* ajústalo según el marco */
+    top: 28px;              /* ajústalo según el marco */
     width: 100%;
     font-size: 48px;        /* hazlo grande */
     font-weight: bold;
