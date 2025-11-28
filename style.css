@@ -303,7 +303,7 @@ height: calc(100vh - 120px);
     font-size: 32px;
     cursor: pointer;
     z-index: 9999;
-    background: rgba(255,255,255,0.8);
+    border: 1px solid #fff;
     padding: 8px 12px;
     border-radius: 10px;
     backdrop-filter: blur(5px);
