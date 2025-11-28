@@ -156,29 +156,39 @@ body {
 
 .controls {
     position: absolute;
-    bottom: -80px; /* justo debajo de las cartas */
+    bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 5;
+
     display: flex;
     gap: 20px;
-    z-index: 5000;
-    transition: opacity 0.3s ease;
+
+    transition: opacity 0.25s ease;
     opacity: 1;
+
+    pointer-events: auto; /* Se activa solo cuando los mostramos */
 }
 
 .controls.hidden {
     opacity: 0;
-    pointer-events: none;
+    pointer-events: none; /* No bloquea scroll cuando están ocultos */
 }
 
 .controls button {
     font-size: 22px;
-    padding: 14px 26px;
+    padding: 15px 28px;
     border-radius: 12px;
-    font-weight: bold;
     border: none;
     background: #ffcb05;
     color: #222;
     box-shadow: 0 4px 10px #0008;
-    cursor: pointer;
 }
+
+
+.scroll-wrapper {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+}
+
