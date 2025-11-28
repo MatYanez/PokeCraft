@@ -135,31 +135,54 @@ function setupCircularScroll() {
 ===================================================== */
 function centerNearestCard() {
     const cards = Array.from(scrollArea.children);
+    const scrollCenter = scrollArea.scrollLeft + scrollArea.clientWidth / 2;
 
-    const center = scrollArea.scrollLeft + scrollArea.clientWidth / 2;
-
-    let closest = null;
-    let minDist = Infinity;
+    let closestCard = null;
+    let smallestDistance = Infinity;
 
     cards.forEach(card => {
         const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-        const dist = Math.abs(center - cardCenter);
-        if (dist < minDist) {
-            minDist = dist;
-            closest = card;
+        const distance = Math.abs(cardCenter - scrollCenter);
+        if (distance < smallestDistance) {
+            smallestDistance = distance;
+            closestCard = card;
         }
     });
 
-    if (closest) {
-        const target =
-            closest.offsetLeft - (scrollArea.clientWidth / 2 - closest.clientWidth / 2);
+    if (!closestCard) return;
 
-        scrollArea.scrollTo({
-            left: target,
-            behavior: "smooth"
-        });
-    }
+    const targetLeft =
+        closestCard.offsetLeft -
+        (scrollArea.clientWidth / 2 - closestCard.clientWidth / 2);
+
+    animateScroll(scrollArea.scrollLeft, targetLeft, 450); // 450ms suavidad
 }
+
+function centerNearestCard() {
+    const cards = Array.from(scrollArea.children);
+    const scrollCenter = scrollArea.scrollLeft + scrollArea.clientWidth / 2;
+
+    let closestCard = null;
+    let smallestDistance = Infinity;
+
+    cards.forEach(card => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const distance = Math.abs(cardCenter - scrollCenter);
+        if (distance < smallestDistance) {
+            smallestDistance = distance;
+            closestCard = card;
+        }
+    });
+
+    if (!closestCard) return;
+
+    const targetLeft =
+        closestCard.offsetLeft -
+        (scrollArea.clientWidth / 2 - closestCard.clientWidth / 2);
+
+    animateScroll(scrollArea.scrollLeft, targetLeft, 450); // 450ms suavidad
+}
+
 
 let scrollTimeout = null;
 
