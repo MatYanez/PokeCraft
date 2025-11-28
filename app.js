@@ -59,7 +59,7 @@ function createCards(amount = 10) {
         /* --- CONTENIDO DEL FRONT (SOLO IMAGEN + MARCO) --- */
         front.innerHTML = `
             <img class="pokemon-art" data-art />
-            <img class="marco" src="/assets/Formato.png" />
+            <img class="marco" src="assets/Formato.png" />
         `;
 
         card.addEventListener("click", () => {
