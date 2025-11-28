@@ -97,6 +97,9 @@ async function loadPokemonData(front, id) {
             ? data.sprites.other["official-artwork"].front_shiny
             : data.sprites.other["official-artwork"].front_default;
 
+        const marco = front.querySelector(".marco");
+        marco.src = isShiny ? "assets/Formato_shiny.png" : "assets/Formato.png";
+
         // Imagen (normal o shiny)
         art.src = spriteSource;
 
