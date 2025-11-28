@@ -81,7 +81,7 @@ function createCards() {
 const typeBackgrounds = {
     normal:    "linear-gradient(135deg, #cfcfcf, #9e9e9e)",
     fire:      "linear-gradient(135deg, #ff9a3c, #ff3c00)",
-    water:     "linear-gradient(135deg, #3ca0ff, #005eff)",
+    water:     "linear-gradient(135deg, #cbe2f9, #093e99)",
     electric:  "linear-gradient(135deg, #ffe13c, #ffb800)",
     grass:     "linear-gradient(135deg, #7ed957, #2ba84a)",
     ice:       "linear-gradient(135deg, #8de7ff, #42c3ff)",
