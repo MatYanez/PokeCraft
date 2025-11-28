@@ -185,7 +185,6 @@ async function loadPokemonData(front, id) {
         const type = data.types[0].type.name;
 
         if (typeBadgeInfo[type]) {
-            badge.style.backgroundColor = typeBadgeInfo[type].color;
             badge.style.backgroundImage = `url(${typeBadgeInfo[type].icon})`;
             badge.style.backgroundSize = "70%";
             badge.style.backgroundPosition = "center";
