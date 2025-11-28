@@ -160,14 +160,13 @@ height: calc(100vh - 120px);
     left: 50%;
     transform: translateX(-50%);
     z-index: 5;
-
     display: flex;
-    gap: 20px;
-
+    gap: 30px;
     transition: opacity 0.25s ease;
     opacity: 1;
-
     pointer-events: auto; /* Se activa solo cuando los mostramos */
+    width: 100%;
+    justify-content: center;
 }
 
 .controls.hidden {
@@ -176,11 +175,11 @@ height: calc(100vh - 120px);
 }
 
 .controls button {
-    font-size: 22px;
-    padding: 15px 28px;
+    font-size: 36px;
+    padding: 39px 106px;
     border-radius: 12px;
     border: none;
-    background: #ffcb05;
+    background: #fff;
     color: #222;
     box-shadow: 0 4px 10px #0008;
 }
