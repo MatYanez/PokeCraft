@@ -1,8 +1,13 @@
 console.log("app.js cargado ✔");
 
 /* =====================================================
+   REFERENCIA GLOBAL AL SCROLL
+===================================================== */
+const scrollArea = document.getElementById("scroll");
+
+/* =====================================================
    1. FUNCIÓN: CREAR UNA CARTA
-   ===================================================== */
+===================================================== */
 function createCard() {
     const card = document.createElement("div");
     card.className = "card";
@@ -16,59 +21,55 @@ function createCard() {
     const front = document.createElement("div");
     front.className = "front";
 
-    // CONTENIDO DEL FRONT (IMAGEN + MARCO PNG)
-front.innerHTML = `
-    <div class="pokemon-name" data-name></div>
+    // CONTENIDO DEL FRONT
+    front.innerHTML = `
+        <div class="pokemon-name" data-name></div>
 
-    <img class="pokemon-art" data-art />
+        <img class="pokemon-art" data-art />
 
-    <div class="pokedex-number" data-number></div>
+        <div class="pokedex-number" data-number></div>
 
-    <div class="pokeballs">
-        <img src="assets/pokeball.png" class="ball">
-        <img src="assets/pokeball.png" class="ball">
-    </div>
+        <div class="pokeballs">
+            <img src="assets/pokeball.png" class="ball">
+            <img src="assets/pokeball.png" class="ball">
+        </div>
 
-    <img class="marco" src="assets/Formato.png" />
-`;
+        <img class="marco" src="assets/Formato.png" />
+    `;
 
-    // Evento flip
+    // Flip
     inner.addEventListener("click", () => {
         inner.classList.toggle("flipped");
     });
 
-    // ARMAR CARTA
+    // Armar carta
     inner.appendChild(back);
     inner.appendChild(front);
     card.appendChild(inner);
 
-    // Cargar Pokémon aleatorio
+    // Pokemon random
     const id = Math.floor(Math.random() * 151) + 1;
     loadPokemonData(front, id);
 
-    
     return card;
 }
 
 /* =====================================================
-   2. FUNCIÓN: CREAR VARIAS CARTAS
-   ===================================================== */
+   2. CREAR MUCHAS CARTAS
+===================================================== */
 function createCards(amount = 10) {
-    const scroll = document.getElementById("scroll");
-
     console.log("Creando cartas…");
 
     for (let i = 0; i < amount; i++) {
-        const carta = createCard();
-        scroll.appendChild(carta);
+        scrollArea.appendChild(createCard());
     }
 
     console.log("Cartas creadas ✔");
 }
 
 /* =====================================================
-   3. FUNCIÓN: CARGAR DATOS DEL POKÉMON
-   ===================================================== */
+   3. CARGAR DATOS DEL POKEMON
+===================================================== */
 async function loadPokemonData(front, id) {
     try {
         const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
@@ -85,7 +86,7 @@ async function loadPokemonData(front, id) {
         nameEl.textContent =
             data.name.charAt(0).toUpperCase() + data.name.slice(1);
 
-        // Número pokédex (#001)
+        // Número Pokedex
         numberEl.textContent = "#" + String(data.id).padStart(3, "0");
 
     } catch (e) {
@@ -93,74 +94,66 @@ async function loadPokemonData(front, id) {
     }
 }
 
-
-
 /* =====================================================
-   4. SCROLL INFINITO CIRCULAR 
-   ===================================================== */
+   4. SCROLL INFINITO CIRCULAR
+===================================================== */
 function setupCircularScroll() {
-    const scroll = document.getElementById("scroll");
     const cardSize = 685;
     let isAdjusting = false;
 
-    scroll.addEventListener("scroll", () => {
+    scrollArea.addEventListener("scroll", () => {
         if (isAdjusting) return;
 
         const position = scrollArea.scrollLeft;
-        const maxScroll = scroll.scrollWidth - scroll.clientWidth;
+        const maxScroll = scrollArea.scrollWidth - scrollArea.clientWidth;
 
-        // Desactiva snap temporalmente
-        scroll.style.scrollSnapType = "none";
+        // Desactivar snap
+        scrollArea.style.scrollSnapType = "none";
 
         // Mover primera carta al final
         if (position >= maxScroll - cardSize) {
             isAdjusting = true;
-            scroll.appendChild(scroll.children[0]);
-            scroll.scrollLeft -= cardSize;
+            scrollArea.appendChild(scrollArea.children[0]);
+            scrollArea.scrollLeft -= cardSize;
             isAdjusting = false;
-            scroll.style.scrollSnapType = "x mandatory";
+            scrollArea.style.scrollSnapType = "x mandatory";
         }
 
         // Mover última carta al inicio
         if (position <= cardSize) {
             isAdjusting = true;
-            scroll.prepend(scroll.children[scroll.children.length - 1]);
-            scroll.scrollLeft += cardSize;
+            scrollArea.prepend(scrollArea.children[scrollArea.children.length - 1]);
+            scrollArea.scrollLeft += cardSize;
             isAdjusting = false;
-            scroll.style.scrollSnapType = "x mandatory";
+            scrollArea.style.scrollSnapType = "x mandatory";
         }
     });
 }
 
 /* =====================================================
-   5. INICIALIZAR TODO
-   ===================================================== */
-createCards(10);
-setupCircularScroll();
-console.log("Sistema listo ✔");
-
-
+   5. AUTOCENTRADO
+===================================================== */
 function centerNearestCard() {
-    const scrollArea = document.getElementById("scroll");
     const cards = Array.from(scrollArea.children);
 
-    const scrollCenter = scrollArea.scrollLeft + scrollArea.clientWidth / 2;
+    const center = scrollArea.scrollLeft + scrollArea.clientWidth / 2;
 
-    let closestCard = null;
-    let smallestDistance = Infinity;
+    let closest = null;
+    let minDist = Infinity;
 
     cards.forEach(card => {
         const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-        const distance = Math.abs(cardCenter - scrollCenter);
-
-        if (distance < smallestDistance) {
-            smallestDistance = distance;
-            closestCard = card;
+        const dist = Math.abs(center - cardCenter);
+        if (dist < minDist) {
+            minDist = dist;
+            closest = card;
         }
     });
 
-    if (closestCard) {
-        const target = closestCard.offsetLeft - (scrollArea.clientWidth / 2 - closestCard.clientWidth / 2);
+    if (closest) {
+        const target =
+            closest.offsetLeft - (scrollArea.clientWidth / 2 - closest.clientWidth / 2);
+
         scrollArea.scrollTo({
             left: target,
             behavior: "smooth"
@@ -168,12 +161,16 @@ function centerNearestCard() {
     }
 }
 
-let scrollTimeout;
+let scrollTimeout = null;
 
 scrollArea.addEventListener("scroll", () => {
     clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-        centerNearestCard();
-    }, 130);
+    scrollTimeout = setTimeout(centerNearestCard, 150);
 });
 
+/* =====================================================
+   6. INICIALIZAR TODO
+===================================================== */
+createCards(10);
+setupCircularScroll();
+console.log("Sistema listo ✔");
