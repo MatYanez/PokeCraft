@@ -20,6 +20,7 @@ function createCard() {
     front.innerHTML = `
     <div class="pokemon-name" data-name></div>
     <img class="pokemon-art" data-art />
+    <div class="pokedex-number" data-number></div>
     <img class="marco" src="assets/Formato.png" />
     `;
 
@@ -65,21 +66,25 @@ async function loadPokemonData(front, id) {
         const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
         const data = await res.json();
 
-        // Seleccionamos los elementos
         const art = front.querySelector("[data-art]");
         const nameEl = front.querySelector("[data-name]");
+        const numberEl = front.querySelector("[data-number]");
 
-        // Asignamos imagen
+        // Imagen
         art.src = data.sprites.other["official-artwork"].front_default;
 
-        // Asignamos nombre → 🔥 VA AQUÍ
+        // Nombre
         nameEl.textContent =
             data.name.charAt(0).toUpperCase() + data.name.slice(1);
+
+        // Número pokédex (#001)
+        numberEl.textContent = "#" + String(data.id).padStart(3, "0");
 
     } catch (e) {
         console.error("Error cargando Pokémon", e);
     }
 }
+
 
 
 /* =====================================================
