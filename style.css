@@ -140,8 +140,8 @@ body {
 
 .pokeballs {
     position: absolute;
-    bottom: 20px;      /* ajusta según tu marco */
-    left: 25px;        /* mueve más a la izquierda si quieres */
+    bottom: 43px;      /* ajusta según tu marco */
+    left: 47px;        /* mueve más a la izquierda si quieres */
     display: flex;
     gap: 8px;          /* espacio entre pokébolas */
     z-index: 9999;     /* por encima del marco */
@@ -149,7 +149,7 @@ body {
 }
 
 .ball {
-    width: 32px;       /* ajusta tamaño si quieres */
-    height: 32px;
+    width: 70px;       /* ajusta tamaño si quieres */
+    height: 70px;
     opacity: 0.95;
 }
