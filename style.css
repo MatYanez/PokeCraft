@@ -84,7 +84,9 @@ body {
 .front {
     transform: rotateY(180deg);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    background: transparent; /* PARA VER */
+    z-index: 2; /* PARA ESTAR ARRIBA */
 }
 
 /* ========================= */
