@@ -124,3 +124,16 @@ body {
     pointer-events: none;
         left: 26%;
 }
+
+.pokedex-number {
+    position: absolute;
+    bottom: 20px;        /* sube/baja según tu marco */
+    right: 30px;         /* pega más a la derecha si quieres */
+    font-size: 28px;     /* tamaño pequeño elegante */
+    font-weight: bold;
+    color: white;
+    opacity: 0.9;
+    text-shadow: 0 0 6px #000;
+    z-index: 9999;       /* encima del marco */
+    pointer-events: none;
+}
