@@ -127,8 +127,8 @@ body {
 
 .pokedex-number {
     position: absolute;
-    bottom: 20px;        /* sube/baja según tu marco */
-    right: 30px;         /* pega más a la derecha si quieres */
+    bottom: 30px;
+    right: 15%;
     font-size: 28px;     /* tamaño pequeño elegante */
     font-weight: bold;
     color: white;
