@@ -24,10 +24,8 @@ front.innerHTML = `
 
     <div class="pokedex-number" data-number></div>
 
-    <div class="pokeballs">
         <img src="assets/pokeball.png" class="ball">
         <img src="assets/pokeball.png" class="ball">
-    </div>
 
     <img class="marco" src="assets/Formato.png" />
 `;
