@@ -99,6 +99,31 @@ const typeBackgrounds = {
     fairy:     "linear-gradient(135deg, #ffbde3, #ff75c7)"
 };
 
+/* =====================================================
+   3. CARGAR DATOS DEL POKÉMON + SHINY + MASTER BALL + TIPO
+===================================================== */
+
+const typeBadgeInfo = {
+    fire:      { color: "#ff6b3c", icon: "assets/types/fire.png" },
+    water:     { color: "#3ca0ff", icon: "assets/types/water.png" },
+    electric:  { color: "#ffd93c", icon: "assets/types/electric.png" },
+    grass:     { color: "#7ed957", icon: "assets/types/grass.png" },
+    psychic:   { color: "#ff6ce5", icon: "assets/types/psychic.png" },
+    ghost:     { color: "#a87cff", icon: "assets/types/ghost.png" },
+    dragon:    { color: "#8e6cff", icon: "assets/types/dragon.png" },
+    dark:      { color: "#5a4a4a", icon: "assets/types/dark.png" },
+    steel:     { color: "#8ea0ad", icon: "assets/types/steel.png" },
+    rock:      { color: "#c6ad6b", icon: "assets/types/rock.png" },
+    ground:    { color: "#d4b46d", icon: "assets/types/ground.png" },
+    ice:       { color: "#9ae7ff", icon: "assets/types/ice.png" },
+    flying:    { color: "#9fb9ff", icon: "assets/types/flying.png" },
+    poison:    { color: "#b55cff", icon: "assets/types/poison.png" },
+    bug:       { color: "#a4d957", icon: "assets/types/bug.png" },
+    fighting:  { color: "#c56b2d", icon: "assets/types/fighting.png" },
+    normal:    { color: "#cfcfcf", icon: "assets/types/normal.png" },
+    fairy:     { color: "#ffbde3", icon: "assets/types/fairy.png" }
+};
+
 async function loadPokemonData(front, id) {
     try {
         const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
@@ -108,10 +133,12 @@ async function loadPokemonData(front, id) {
         const nameEl = front.querySelector("[data-name]");
         const numberEl = front.querySelector("[data-number]");
         const marco = front.querySelector(".marco");
+        const balls = front.querySelector(".pokeballs");
+        const badge = front.querySelector("[data-type-badge]");
 
-        /* -------------------------------
-           SHINY ALEATORIO (10%)
-        ------------------------------- */
+        /* ----------------------------------------
+           SHINY 10% — sprite + marco + pokebola extra
+        ----------------------------------------- */
         const isShiny = Math.random() < 0.10;
 
         const spriteSource = isShiny
@@ -119,23 +146,21 @@ async function loadPokemonData(front, id) {
             : data.sprites.other["official-artwork"].front_default;
 
         art.src = spriteSource;
-
-        nameEl.textContent =
-            data.name.charAt(0).toUpperCase() + data.name.slice(1) +
-            (isShiny ? " ✨" : "");
-
-        numberEl.textContent = "#" + String(data.id).padStart(3, "0");
-
         marco.src = isShiny
             ? "assets/Formato_shiny.png"
             : "assets/Formato.png";
 
-        /* -------------------------------
-           AGREGAR POKEBOLA MASTER SI ES SHINY
-        ------------------------------- */
-        const balls = front.querySelector(".pokeballs");
+        /* Nombre + shiny */
+        nameEl.textContent =
+            data.name.charAt(0).toUpperCase() + data.name.slice(1) +
+            (isShiny ? " ✨" : "");
 
-        // Primero limpia posibles restos (por seguridad)
+        /* Número */
+        numberEl.textContent = "#" + String(data.id).padStart(3, "0");
+
+        /* ----------------------------------------
+           RESETEAR POKEBOLAS + MASTER BALL SI SHINY
+        ----------------------------------------- */
         balls.innerHTML = `
             <img src="assets/pokeball.png" class="ball">
             <img src="assets/pokeball.png" class="ball">
@@ -148,10 +173,24 @@ async function loadPokemonData(front, id) {
             balls.appendChild(master);
         }
 
+        /* ----------------------------------------
+           ESFERA DE TIPO (color + ícono)
+        ----------------------------------------- */
+        const type = data.types[0].type.name;
+
+        if (typeBadgeInfo[type]) {
+            badge.style.backgroundColor = typeBadgeInfo[type].color;
+            badge.style.backgroundImage = `url(${typeBadgeInfo[type].icon})`;
+            badge.style.backgroundSize = "70%";
+            badge.style.backgroundPosition = "center";
+            badge.style.backgroundRepeat = "no-repeat";
+        }
+
     } catch (e) {
         console.error("Error cargando Pokémon", e);
     }
 }
+
 
 
 /* =====================================================

@@ -271,6 +271,26 @@ height: calc(100vh - 120px);
 }
 
 
+.type-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    border: 3px solid rgba(255,255,255,0.8);
+    box-shadow:
+        0 0 10px rgba(0,0,0,0.35),
+        inset 0 0 10px rgba(255,255,255,0.4);
+
+    backdrop-filter: blur(3px);
+    z-index: 6;
+}
 
 
 
