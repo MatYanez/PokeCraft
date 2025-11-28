@@ -197,6 +197,56 @@ scrollArea.addEventListener("scroll", () => {
     scrollTimeout = setTimeout(centerNearestCard, 150);
 });
 
+
+function overrideCardFlip(inner) {
+    inner.addEventListener("click", () => {
+
+        // Si está bloqueado y NO es la carta seleccionada → ignorar
+        if (interactionsLocked && selectedCard !== inner) return;
+
+        // Si está bloqueado Y es la carta seleccionada → permitir re-abrirla
+        if (interactionsLocked && selectedCard === inner) {
+            flipCard(inner, "front");
+            return;
+        }
+
+        // Si no está bloqueado → primera vez que se abre
+        inner.classList.add("flipped");
+        selectedCard = inner;
+        lockInteractions();
+    });
+}
+
+btnNext.addEventListener("click", () => {
+    if (!selectedCard) return;
+
+    const card = selectedCard.parentElement;
+
+    // Boca abajo
+    flipCard(selectedCard, "back");
+
+    setTimeout(() => {
+        card.remove();       // eliminar carta
+        selectedCard = null; // limpiar
+        unlockInteractions();// desbloquear todo
+    }, 350);
+});
+
+
+function flipCard(inner, state) {
+    if (state === "front") {
+        inner.classList.add("flipped");
+    } else {
+        inner.classList.remove("flipped");
+    }
+}
+
+
+
+
+
+
+
 /* =====================================================
    6. INICIALIZAR TODO
 ===================================================== */
