@@ -382,6 +382,12 @@ height: calc(100vh - 120px);
 /*       MENÚ INICIAL       */
 /* ========================= */
 
+.menu{
+        display: grid;
+    justify-content: center;
+    justify-items: center;
+}
+
 .main-menu {
     position: fixed;
     inset: 0;
@@ -432,4 +438,5 @@ height: calc(100vh - 120px);
 
 .menu-btn.secondary {
     background: #e0e0e0;
+    margin-top: 2rem;
 }
