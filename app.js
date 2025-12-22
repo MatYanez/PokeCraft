@@ -31,16 +31,13 @@ const generations = {
 };
 
 const menu = document.getElementById("menu");
+const btnStart = document.getElementById("btnStart");
 
-function startGame() {
-    menu.classList.add("hidden");
+btnStart.addEventListener("click", () => {
+    menu.classList.add("hidden");   // 👈 desaparece el menú
+    startGame();                    // 👈 inicia el juego
+});
 
-    scrollArea.innerHTML = "";
-
-    const pokemonIDs = getPokemonIDsFromGenerations(selectedGenerations);
-    createCards(pokemonIDs);
-    setupCircularScroll();
-}
 
 
 
@@ -231,7 +228,7 @@ async function loadPokemonData(front, id) {
 }
 
 const config = document.getElementById("config");
-const btnStart = document.getElementById("btnStart");
+
 const btnConfig = document.getElementById("btnConfig");
 const btnSaveConfig = document.getElementById("btnSaveConfig");
 
@@ -257,19 +254,14 @@ btnStart.addEventListener("click", () => {
 
 
 function startGame() {
-    menu.classList.add("hidden");
-    config.classList.add("hidden");
-
     scrollArea.innerHTML = "";
 
     const pokemonIDs = getPokemonIDsFromGenerations(selectedGenerations);
-
     createCards(pokemonIDs);
     setupCircularScroll();
 
-    console.log("Juego iniciado con generaciones:", selectedGenerations);
+    console.log("Juego iniciado ✔");
 }
-
 
 
 
