@@ -413,9 +413,7 @@ height: calc(100vh - 120px);
 
 /* BOTONES */
 .menu-btn {
-    width: 100%;
-    max-width: 640px;
-
+    width: 90%;
     padding: 36px 20px;
     font-size: 42px;
 
