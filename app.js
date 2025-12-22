@@ -30,7 +30,17 @@ const generations = {
     5: { start: 494, end: 649 }
 };
 
+const menu = document.getElementById("menu");
 
+function startGame() {
+    menu.classList.add("hidden");
+
+    scrollArea.innerHTML = "";
+
+    const pokemonIDs = getPokemonIDsFromGenerations(selectedGenerations);
+    createCards(pokemonIDs);
+    setupCircularScroll();
+}
 
 
 
@@ -220,7 +230,6 @@ async function loadPokemonData(front, id) {
     }
 }
 
-const menu = document.getElementById("menu");
 const config = document.getElementById("config");
 const btnStart = document.getElementById("btnStart");
 const btnConfig = document.getElementById("btnConfig");
@@ -503,3 +512,5 @@ confirmReset.addEventListener("click", () => {
 
     console.log("Juego reiniciado ✔");
 });
+
+
