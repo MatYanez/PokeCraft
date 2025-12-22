@@ -386,6 +386,8 @@ height: calc(100vh - 120px);
         display: grid;
     justify-content: center;
     justify-items: center;
+        margin-top: 30rem;
+    height: 32vh;
 }
 
 .main-menu {
@@ -419,7 +421,7 @@ height: calc(100vh - 120px);
 
     border: none;
     border-radius: 16px;
-
+    margin-top: 2rem;
     background: white;
     color: #111;
 
@@ -436,5 +438,5 @@ height: calc(100vh - 120px);
 
 .menu-btn.secondary {
     background: #e0e0e0;
-    margin-top: 2rem;
+
 }
