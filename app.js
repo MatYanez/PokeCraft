@@ -38,6 +38,14 @@ btnStart.addEventListener("click", () => {
     startGame();                    // 👈 inicia el juego
 });
 
+const genCards = document.querySelectorAll(".gen-card");
+const btnSaveConfig = document.getElementById("btnSaveConfig");
+
+genCards.forEach(card => {
+    card.addEventListener("click", () => {
+        card.classList.toggle("selected");
+    });
+});
 
 
 
@@ -230,7 +238,6 @@ async function loadPokemonData(front, id) {
 const config = document.getElementById("config");
 
 const btnConfig = document.getElementById("btnConfig");
-const btnSaveConfig = document.getElementById("btnSaveConfig");
 
 let selectedGenerations = ["1"]; // por defecto Kanto
 
@@ -240,12 +247,20 @@ btnConfig.addEventListener("click", () => {
 });
 
 btnSaveConfig.addEventListener("click", () => {
-    selectedGenerations = Array.from(
-        config.querySelectorAll("input[type=checkbox]:checked")
-    ).map(cb => cb.value);
 
+    selectedGenerations = Array.from(
+        document.querySelectorAll(".gen-card.selected")
+    ).map(card => card.dataset.gen);
+
+    if (selectedGenerations.length === 0) {
+        alert("Selecciona al menos una generación");
+        return;
+    }
+
+    document.getElementById("config").classList.add("hidden");
     startGame();
 });
+
 
 
 btnStart.addEventListener("click", () => {

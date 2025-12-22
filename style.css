@@ -440,3 +440,80 @@ height: calc(100vh - 120px);
     background: #e0e0e0;
 
 }
+
+
+
+/* ========================= */
+/*   CONFIGURACIÓN GENES    */
+/* ========================= */
+
+.config {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: radial-gradient(circle at top, #222, #000);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 40px 24px;
+    gap: 30px;
+
+    overflow-y: auto;
+    font-family: "MiFuente", sans-serif;
+}
+
+.config-title {
+    font-size: 48px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.gen-list {
+    width: 100%;
+    max-width: 700px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.gen-card {
+    width: 100%;
+    height: 160px;
+
+    background: linear-gradient(135deg, #333, #111);
+    border-radius: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 40px;
+
+    color: white;
+    font-size: 42px;
+
+    box-shadow: 0 10px 30px #000a;
+    cursor: pointer;
+
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+}
+
+.gen-card:active {
+    transform: scale(0.97);
+}
+
+.gen-card.selected {
+    background: linear-gradient(135deg, #ffcc00, #ff9900);
+    color: #111;
+}
+
+.gen-number {
+    font-weight: bold;
+}
+
+.gen-name {
+    opacity: 0.9;
+}
