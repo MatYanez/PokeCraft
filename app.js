@@ -8,7 +8,31 @@ const scrollArea = document.getElementById("scroll");
 /* =====================================================
    ARRAY CON LOS 151 POKÉMON ORDENADOS
 ===================================================== */
-const kantoIDs = Array.from({ length: 151 }, (_, i) => i + 1);
+function getPokemonIDsFromGenerations(selectedGens) {
+    let ids = [];
+
+    selectedGens.forEach(gen => {
+        const range = generations[gen];
+        for (let i = range.start; i <= range.end; i++) {
+            ids.push(i);
+        }
+    });
+
+    return ids;
+}
+
+
+const generations = {
+    1: { start: 1, end: 151 },
+    2: { start: 152, end: 251 },
+    3: { start: 252, end: 386 },
+    4: { start: 387, end: 493 },
+    5: { start: 494, end: 649 }
+};
+
+
+
+
 
 /* =====================================================
    SHUFFLE (MEZCLA ALEATORIA SIN REPETIR)
@@ -68,16 +92,16 @@ front.innerHTML = `
 /* =====================================================
    2. CREAR LAS 151 CARTAS EN ORDEN ALEATORIO
 ===================================================== */
-function createCards() {
+function createCards(pokemonIDs) {
     console.log("Creando cartas…");
 
-    const randomOrder = shuffle([...kantoIDs]);
+    const randomOrder = shuffle([...pokemonIDs]);
 
     randomOrder.forEach(id => {
         scrollArea.appendChild(createCard(id));
     });
 
-    console.log("Cartas creadas (151 pokémon aleatorios) ✔");
+    console.log(`Cartas creadas (${pokemonIDs.length} Pokémon) ✔`);
 }
 
 /* =====================================================
@@ -195,6 +219,61 @@ async function loadPokemonData(front, id) {
         console.error("Error cargando Pokémon", e);
     }
 }
+
+const menu = document.getElementById("menu");
+const config = document.getElementById("config");
+const btnStart = document.getElementById("btnStart");
+const btnConfig = document.getElementById("btnConfig");
+const btnSaveConfig = document.getElementById("btnSaveConfig");
+
+let selectedGenerations = ["1"]; // por defecto Kanto
+
+btnConfig.addEventListener("click", () => {
+    menu.classList.add("hidden");
+    config.classList.remove("hidden");
+});
+
+btnSaveConfig.addEventListener("click", () => {
+    selectedGenerations = Array.from(
+        config.querySelectorAll("input[type=checkbox]:checked")
+    ).map(cb => cb.value);
+
+    startGame();
+});
+
+
+btnStart.addEventListener("click", () => {
+    startGame();
+});
+
+
+function startGame() {
+    menu.classList.add("hidden");
+    config.classList.add("hidden");
+
+    scrollArea.innerHTML = "";
+
+    const pokemonIDs = getPokemonIDsFromGenerations(selectedGenerations);
+
+    createCards(pokemonIDs);
+    setupCircularScroll();
+
+    console.log("Juego iniciado con generaciones:", selectedGenerations);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -377,8 +456,7 @@ btnNext.addEventListener("click", () => {
 /* =====================================================
    7. INICIALIZAR TODO
 ===================================================== */
-createCards();
-setupCircularScroll();
+
 console.log("Sistema listo ✔");
 
 
