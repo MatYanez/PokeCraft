@@ -543,49 +543,6 @@ console.log("Sistema listo ✔");
 
 
 
-/* =====================================================
-   8. SISTEMA DE REINICIO (MODAL + RESET COMPLETO)
-===================================================== */
-
-const resetButton = document.getElementById("resetButton");
-const resetModal = document.getElementById("resetModal");
-const confirmReset = document.getElementById("confirmReset");
-const cancelReset = document.getElementById("cancelReset");
-
-// ABRIR MODAL
-resetButton.addEventListener("click", () => {
-    resetModal.classList.remove("hidden");
-});
-
-// CERRAR MODAL
-cancelReset.addEventListener("click", () => {
-    resetModal.classList.add("hidden");
-});
-
-// CONFIRMACIÓN → REINICIAR JUEGO
-confirmReset.addEventListener("click", () => {
-
-    // limpiar todo
-    scrollArea.innerHTML = "";
-
-    // reiniciar variables de turno
-    selectedCard = null;
-    interactionsLocked = false;
-    btnHide.textContent = "Ocultar";
-
-    // ocultar botones si estaban visibles
-    controls.classList.add("hidden");
-    scrollArea.style.pointerEvents = "auto";
-
-    // volver a cargar pokémon
-    createCards();
-
-    // cerrar modal
-    resetModal.classList.add("hidden");
-
-    console.log("Juego reiniciado ✔");
-});
-
 
 const openDifficulty = document.getElementById("openDifficulty");
 const openShiny = document.getElementById("openShiny");
