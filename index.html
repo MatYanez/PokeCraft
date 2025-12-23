@@ -11,6 +11,7 @@
     <img src="/assets/logo.png" alt="PokeCraft" class="logo">
 
     <button id="btnStart" class="menu-btn">Iniciar juego</button>
+    <button id="btnSettings" class="menu-btn secondary">Ajustes</button>
 </div>
 
 <div id="config" class="config hidden">
@@ -70,6 +71,40 @@
     </button>
 </div>
 
+<div id="settings" class="config hidden">
+
+    <h2 class="config-title">Ajustes del juego</h2>
+
+    <div class="gen-list">
+
+        <!-- DIFICULTAD -->
+        <div class="gen-card selected" data-difficulty="normal">
+            🎮 Dificultad: Normal
+        </div>
+
+        <div class="gen-card" data-difficulty="hard">
+            🔥 Dificultad: Difícil
+        </div>
+
+        <!-- SHINY -->
+        <div class="gen-card selected" data-shiny="0.10">
+            ✨ Shiny: Normal (10%)
+        </div>
+
+        <div class="gen-card" data-shiny="0.05">
+            ✨ Shiny: Raro (5%)
+        </div>
+
+        <div class="gen-card" data-shiny="0.02">
+            ✨ Shiny: Muy raro (2%)
+        </div>
+
+    </div>
+
+    <button id="btnSaveSettings" class="menu-btn">
+        Guardar ajustes
+    </button>
+</div>
 
 
 
