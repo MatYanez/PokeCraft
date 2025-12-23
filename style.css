@@ -559,3 +559,19 @@ height: calc(100vh - 120px);
 .pokedex-grid .inner {
     cursor: default;
 }
+
+
+.pokedex-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding: 30px;
+    align-items: start;
+}
+
+/* Las cartas del juego son gigantes, hay que escalar */
+.pokedex-grid .card {
+    transform: scale(0.32);
+    transform-origin: top left;
+    height: auto;
+}
