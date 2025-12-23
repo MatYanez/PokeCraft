@@ -168,8 +168,6 @@ function createPokedexCard(id) {
     const inner = card.querySelector(".inner");
     inner.classList.add("flipped");
 
-    // desactivar TODA interacción
-    inner.replaceWith(inner.cloneNode(true));
 
     return card;
 }
@@ -602,11 +600,30 @@ document.addEventListener("click", (e) => {
 
 let pokedexLoaded = false;
 
-function loadPokedex() {
-    if (pokedexLoaded) return;
-    pokedexLoaded = true;
 
+
+
+function createPokedexCard(id) {
+    const card = createCard(id);
+
+    const inner = card.querySelector(".inner");
+
+    // siempre visible
+    inner.classList.add("flipped");
+
+    // bloquear interacción SOLO visual
+    inner.style.pointerEvents = "none";
+
+    return card;
+}
+
+
+
+
+function loadPokedex() {
     const grid = document.getElementById("pokedexGrid");
+    if (!grid) return;
+
     grid.innerHTML = "";
 
     const ids = getPokemonIDsFromGenerations(selectedGenerations);
@@ -616,3 +633,6 @@ function loadPokedex() {
         grid.appendChild(card);
     });
 }
+
+
+
