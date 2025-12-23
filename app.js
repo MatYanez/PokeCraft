@@ -161,6 +161,20 @@ front.innerHTML = `
     return card;
 }
 
+function createPokedexCard(id) {
+    const card = createCard(id);
+
+    // forzar siempre visible
+    const inner = card.querySelector(".inner");
+    inner.classList.add("flipped");
+
+    // desactivar TODA interacción
+    inner.replaceWith(inner.cloneNode(true));
+
+    return card;
+}
+
+
 /* =====================================================
    2. CREAR LAS 151 CARTAS EN ORDEN ALEATORIO
 ===================================================== */
@@ -588,23 +602,19 @@ document.addEventListener("click", (e) => {
 
 function loadPokedex() {
     const grid = document.getElementById("pokedexGrid");
-    if (!grid) return;
+    if (!grid) {
+        console.error("❌ pokedexGrid no existe");
+        return;
+    }
 
     grid.innerHTML = "";
 
     const ids = getPokemonIDsFromGenerations(selectedGenerations);
 
     ids.forEach(id => {
-        const card = createCard(id);
-
-        // 👉 modo pokedex
-        card.classList.add("pokedex-card");
-
-        // desactivar interacción de juego
-        const inner = card.querySelector(".inner");
-        inner.classList.add("flipped"); // siempre visible
-        inner.style.pointerEvents = "none";
-
+        const card = createPokedexCard(id);
         grid.appendChild(card);
     });
+
+    console.log("Pokédex cargada ✔", ids.length);
 }
