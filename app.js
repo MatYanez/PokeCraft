@@ -95,8 +95,7 @@ currentScreen = menu;
 const config = document.getElementById("config");
 
 btnStart.addEventListener("click", () => {
-    menu.classList.add("hidden");      // ocultar menú
-    config.classList.remove("hidden"); // mostrar configuración
+showScreen(config);
 });
 
 genCards.forEach(card => {
