@@ -519,11 +519,11 @@ height: calc(100vh - 120px);
 /* BOTÓN VOLVER */
 .back-btn {
     font-size: 32px;
-    background: none;
+    background: #333333;
     border: none;
     color: white;
     cursor: pointer;
-    padding: 10px 14px;
+    padding: 1rem 2rem;
     border-radius: 10px;
     transition: background 0.2s ease, transform 0.1s ease;
 }
