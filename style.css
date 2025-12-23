@@ -478,23 +478,16 @@ height: calc(100vh - 120px);
 }
 
 .gen-card {
-    height: 160px;
-
     background: linear-gradient(135deg, #333, #111);
     border-radius: 22px;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     padding: 0 40px;
-
     color: white;
     font-size: 42px;
-
     box-shadow: 0 10px 30px #000a;
     cursor: pointer;
-
     transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
 }
 
