@@ -635,20 +635,19 @@ function loadPokedex() {
 
     grid.innerHTML = "";
 
-    // Cambia 151 por 1025 si quieres toda la pokédex
-    for (let i = 1; i <= 151; i++) {
-        const cell = document.createElement("div");
-        cell.className = "pokedex-cell";
+    const ids = getPokemonIDsFromGenerations(selectedGenerations);
 
-        const img = document.createElement("img");
-        img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i}.png`;
-        img.alt = `Pokemon ${i}`;
+    ids.forEach(id => {
+        const card = createCard(id);
 
-        const num = document.createElement("span");
-        num.textContent = `#${String(i).padStart(3, "0")}`;
+        // 👉 modo pokedex
+        card.classList.add("pokedex-card");
 
-        cell.appendChild(img);
-        cell.appendChild(num);
-        grid.appendChild(cell);
-    }
+        // desactivar interacción de juego
+        const inner = card.querySelector(".inner");
+        inner.classList.add("flipped"); // siempre visible
+        inner.style.pointerEvents = "none";
+
+        grid.appendChild(card);
+    });
 }

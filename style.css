@@ -541,3 +541,21 @@ height: calc(100vh - 120px);
     flex: 1;
     text-align: center;
 }
+
+
+.pokedex-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding: 30px;
+}
+
+.pokedex-grid .card {
+    transform: scale(0.35);
+    transform-origin: top left;
+    height: auto;
+}
+
+.pokedex-grid .inner {
+    cursor: default;
+}
