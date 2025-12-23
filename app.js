@@ -273,10 +273,6 @@ let gameSettings = {
 
 let selectedGenerations = ["1"]; // por defecto Kanto
 
-btnConfig.addEventListener("click", () => {
-    menu.classList.add("hidden");
-    config.classList.remove("hidden");
-});
 
 btnSaveConfig.addEventListener("click", () => {
 
