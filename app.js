@@ -627,3 +627,28 @@ document.addEventListener("click", (e) => {
         goBack();
     }
 });
+
+
+function loadPokedex() {
+    const grid = document.getElementById("pokedexGrid");
+    if (!grid) return;
+
+    grid.innerHTML = "";
+
+    // Cambia 151 por 1025 si quieres toda la pokédex
+    for (let i = 1; i <= 151; i++) {
+        const cell = document.createElement("div");
+        cell.className = "pokedex-cell";
+
+        const img = document.createElement("img");
+        img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i}.png`;
+        img.alt = `Pokemon ${i}`;
+
+        const num = document.createElement("span");
+        num.textContent = `#${String(i).padStart(3, "0")}`;
+
+        cell.appendChild(img);
+        cell.appendChild(num);
+        grid.appendChild(cell);
+    }
+}
