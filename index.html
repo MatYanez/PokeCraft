@@ -73,38 +73,30 @@
 
 <div id="settings" class="config hidden">
 
-    <h2 class="config-title">Ajustes del juego</h2>
+    <h2 class="config-title">Ajustes</h2>
 
     <div class="gen-list">
 
-        <!-- DIFICULTAD -->
-        <div class="gen-card selected" data-difficulty="normal">
-            🎮 Dificultad: Normal
+        <div class="gen-card" id="openDifficulty">
+            <img src="assets/cards/Nivel.png" style="width:100%; border-radius:25px;">
         </div>
 
-        <div class="gen-card" data-difficulty="hard">
-            🔥 Dificultad: Difícil
+        <div class="gen-card" id="openShiny">
+            <img src="assets/cards/Shinies.png" style="width:100%; border-radius:25px;">
         </div>
 
-        <!-- SHINY -->
-        <div class="gen-card selected" data-shiny="0.10">
-            ✨ Shiny: Normal (10%)
-        </div>
-
-        <div class="gen-card" data-shiny="0.05">
-            ✨ Shiny: Raro (5%)
-        </div>
-
-        <div class="gen-card" data-shiny="0.02">
-            ✨ Shiny: Muy raro (2%)
+        <div class="gen-card" id="openPokedex">
+            <img src="assets/cards/Pokedex.png" style="width:100%; border-radius:25px;">
         </div>
 
     </div>
 
-    <button id="btnSaveSettings" class="menu-btn">
-        Guardar ajustes
+    <button id="btnBackFromSettings" class="menu-btn secondary">
+        Volver
     </button>
+
 </div>
+
 
 
 
