@@ -600,13 +600,13 @@ document.addEventListener("click", (e) => {
 });
 
 
-function loadPokedex() {
-    const grid = document.getElementById("pokedexGrid");
-    if (!grid) {
-        console.error("❌ pokedexGrid no existe");
-        return;
-    }
+let pokedexLoaded = false;
 
+function loadPokedex() {
+    if (pokedexLoaded) return;
+    pokedexLoaded = true;
+
+    const grid = document.getElementById("pokedexGrid");
     grid.innerHTML = "";
 
     const ids = getPokemonIDsFromGenerations(selectedGenerations);
@@ -615,6 +615,4 @@ function loadPokedex() {
         const card = createPokedexCard(id);
         grid.appendChild(card);
     });
-
-    console.log("Pokédex cargada ✔", ids.length);
 }
