@@ -595,6 +595,18 @@ const difficultyScreen = document.getElementById("difficultyScreen");
 const shinyScreen = document.getElementById("shinyScreen");
 const pokedexScreen = document.getElementById("pokedexScreen");
 
+openDifficulty.onclick = () => {
+    showScreen(difficultyScreen);
+};
+
+openShiny.onclick = () => {
+    showScreen(shinyScreen);
+};
+
+openPokedex.onclick = () => {
+    showScreen(pokedexScreen);
+    loadPokedex();
+};
 
 
 
