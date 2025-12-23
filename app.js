@@ -214,7 +214,7 @@ async function loadPokemonData(front, id) {
         /* ----------------------------------------
            SHINY 10% — sprite + marco + pokebola extra
         ----------------------------------------- */
-        const isShiny = Math.random() < 0.10;
+const isShiny = Math.random() < gameSettings.shinyChance;
 
         const spriteSource = isShiny
             ? data.sprites.other["official-artwork"].front_shiny
@@ -266,6 +266,11 @@ async function loadPokemonData(front, id) {
 }
 
 
+let gameSettings = {
+    difficulty: "normal",
+    shinyChance: 0.10
+};
+
 let selectedGenerations = ["1"]; // por defecto Kanto
 
 btnConfig.addEventListener("click", () => {
@@ -302,6 +307,53 @@ function startGame() {
 
 
 
+const btnSettings = document.getElementById("btnSettings");
+const settings = document.getElementById("settings");
+const btnSaveSettings = document.getElementById("btnSaveSettings");
+settings.querySelectorAll(".gen-card").forEach(card => {
+    card.addEventListener("click", () => {
+
+        // Dificultad (solo una)
+        if (card.dataset.difficulty) {
+            settings.querySelectorAll("[data-difficulty]")
+                .forEach(c => c.classList.remove("selected"));
+        }
+
+        // Shiny (solo una)
+        if (card.dataset.shiny) {
+            settings.querySelectorAll("[data-shiny]")
+                .forEach(c => c.classList.remove("selected"));
+        }
+
+        card.classList.add("selected");
+    });
+});
+
+
+btnSettings.addEventListener("click", () => {
+    menu.classList.add("hidden");
+    settings.classList.remove("hidden");
+});
+
+btnSaveSettings.addEventListener("click", () => {
+
+    // dificultad
+    const difficultyCard = document.querySelector(".gen-card.selected[data-difficulty]");
+    if (difficultyCard) {
+        gameSettings.difficulty = difficultyCard.dataset.difficulty;
+    }
+
+    // shiny
+    const shinyCard = document.querySelector(".gen-card.selected[data-shiny]");
+    if (shinyCard) {
+        gameSettings.shinyChance = parseFloat(shinyCard.dataset.shiny);
+    }
+
+    settings.classList.add("hidden");
+    menu.classList.remove("hidden");
+
+    console.log("Ajustes guardados:", gameSettings);
+});
 
 
 
