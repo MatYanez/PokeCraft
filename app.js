@@ -60,16 +60,16 @@ const generations = {
 
 };
 
-const menu = document.getElementById("menu");
+const genCards = document.querySelectorAll(".gen-card");
+
 const btnStart = document.getElementById("btnStart");
+const menu = document.getElementById("menu");
+const config = document.getElementById("config");
 
 btnStart.addEventListener("click", () => {
-    menu.classList.add("hidden");   // 👈 desaparece el menú
-    startGame();                    // 👈 inicia el juego
+    menu.classList.add("hidden");      // ocultar menú
+    config.classList.remove("hidden"); // mostrar configuración
 });
-
-const genCards = document.querySelectorAll(".gen-card");
-const btnSaveConfig = document.getElementById("btnSaveConfig");
 
 genCards.forEach(card => {
     card.addEventListener("click", () => {
@@ -265,9 +265,6 @@ async function loadPokemonData(front, id) {
     }
 }
 
-const config = document.getElementById("config");
-
-const btnConfig = document.getElementById("btnConfig");
 
 let selectedGenerations = ["1"]; // por defecto Kanto
 
@@ -288,12 +285,6 @@ btnSaveConfig.addEventListener("click", () => {
     }
 
     document.getElementById("config").classList.add("hidden");
-    startGame();
-});
-
-
-
-btnStart.addEventListener("click", () => {
     startGame();
 });
 
