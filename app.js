@@ -626,6 +626,9 @@ difficultyScreen.querySelectorAll("[data-difficulty]").forEach(card => {
 });
 
 
-document.querySelectorAll("[data-back]").forEach(btn => {
-    btn.addEventListener("click", goBack);
+document.addEventListener("click", (e) => {
+    const backBtn = e.target.closest("[data-back]");
+    if (backBtn) {
+        goBack();
+    }
 });
