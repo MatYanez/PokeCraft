@@ -23,11 +23,15 @@ function getPokemonIDsFromGenerations(selectedGens) {
 
 
 const generations = {
-    1: { start: 1, end: 151 },
-    2: { start: 152, end: 251 },
-    3: { start: 252, end: 386 },
-    4: { start: 387, end: 493 },
-    5: { start: 494, end: 649 }
+    1: { start: 1, end: 151 },    // Kanto
+    2: { start: 152, end: 251 },  // Johto
+    3: { start: 252, end: 386 },  // Hoenn
+    4: { start: 387, end: 493 },  // Sinnoh
+    5: { start: 494, end: 649 },  // Teselia (Unova)
+    6: { start: 650, end: 721 },  // Kalos
+    7: { start: 722, end: 809 },  // Alola
+    8: { start: 810, end: 905 },  // Galar e Hisui
+    9: { start: 906, end: 1025 }  // Paldea y DLCs (Noriteo/Arándano)
 };
 
 const menu = document.getElementById("menu");
