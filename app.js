@@ -12,25 +12,26 @@ function getPokemonIDsFromGenerations(selectedGens) {
     let ids = [];
 
     selectedGens.forEach(gen => {
-        const data = POKEMON_GROUPS[gen]; // Usando el objeto que definimos antes
+        const data = generations[gen];
         
-        if (!data) return; // Salta si por alguna razón no existe la categoría
+        if (!data) return; 
 
-        // Verificamos si es un rango (Generaciones)
+        // Si es un objeto con rango (start/end)
         if (data.start && data.end) {
             for (let i = data.start; i <= data.end; i++) {
                 ids.push(i);
             }
         } 
-        // Verificamos si es un array (Legendary / Mythical)
+        // Si es directamente un array de IDs (Legendarios/Singulares)
         else if (Array.isArray(data)) {
             ids = ids.concat(data);
         }
     });
 
-    // Opcional: Eliminar duplicados si alguien selecciona una Gen y también Legendarios
+    // Eliminamos duplicados por si acaso
     return [...new Set(ids)];
 }
+
 
 const generations = {
     1: { start: 1, end: 151 },    // Kanto
