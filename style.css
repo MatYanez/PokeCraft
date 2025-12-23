@@ -510,7 +510,7 @@ height: calc(100vh - 120px);
 
 /* HEADER DE CONFIGURACIÓN */
 .config-header {
-    width: 100%;
+    width: 90%;
     display: flex;
     align-items: center;
     gap: 20px;
