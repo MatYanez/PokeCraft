@@ -1,4 +1,29 @@
-console.log("app.js cargado ✔");
+let screenHistory = [];
+let currentScreen = null;
+
+
+function showScreen(screen) {
+    if (currentScreen && currentScreen !== screen) {
+        screenHistory.push(currentScreen);
+        currentScreen.classList.add("hidden");
+    }
+
+    screen.classList.remove("hidden");
+    currentScreen = screen;
+}
+
+function goBack() {
+    if (screenHistory.length === 0) return;
+
+    currentScreen.classList.add("hidden");
+    const prev = screenHistory.pop();
+    prev.classList.remove("hidden");
+    currentScreen = prev;
+}
+
+
+
+
 
 /* =====================================================
    REFERENCIA GLOBAL AL SCROLL
@@ -63,7 +88,10 @@ const generations = {
 const genCards = document.querySelectorAll(".gen-card");
 
 const btnStart = document.getElementById("btnStart");
+
 const menu = document.getElementById("menu");
+currentScreen = menu;
+
 const config = document.getElementById("config");
 
 btnStart.addEventListener("click", () => {
@@ -327,8 +355,7 @@ settings.querySelectorAll(".gen-card").forEach(card => {
 
 
 btnSettings.addEventListener("click", () => {
-    menu.classList.add("hidden");
-    settings.classList.remove("hidden");
+showScreen(settings);
 });
 
 
@@ -569,7 +596,6 @@ const difficultyScreen = document.getElementById("difficultyScreen");
 const shinyScreen = document.getElementById("shinyScreen");
 const pokedexScreen = document.getElementById("pokedexScreen");
 
-const btnBackFromSettings = document.getElementById("btnBackFromSettings");
 
 openDifficulty.onclick = () => {
     settings.classList.add("hidden");
@@ -587,10 +613,6 @@ openPokedex.onclick = () => {
     loadPokedex();
 };
 
-btnBackFromSettings.onclick = () => {
-    settings.classList.add("hidden");
-    menu.classList.remove("hidden");
-};
 
 
 difficultyScreen.querySelectorAll("[data-difficulty]").forEach(card => {
@@ -601,4 +623,9 @@ difficultyScreen.querySelectorAll("[data-difficulty]").forEach(card => {
         card.classList.add("selected");
         gameSettings.difficulty = card.dataset.difficulty;
     };
+});
+
+
+document.querySelectorAll("[data-back]").forEach(btn => {
+    btn.addEventListener("click", goBack);
 });
