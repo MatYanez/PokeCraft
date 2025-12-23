@@ -305,7 +305,7 @@ function startGame() {
 
 const btnSettings = document.getElementById("btnSettings");
 const settings = document.getElementById("settings");
-const btnSaveSettings = document.getElementById("btnSaveSettings");
+
 settings.querySelectorAll(".gen-card").forEach(card => {
     card.addEventListener("click", () => {
 
@@ -330,35 +330,6 @@ btnSettings.addEventListener("click", () => {
     menu.classList.add("hidden");
     settings.classList.remove("hidden");
 });
-
-btnSaveSettings.addEventListener("click", () => {
-
-    // dificultad
-    const difficultyCard = document.querySelector(".gen-card.selected[data-difficulty]");
-    if (difficultyCard) {
-        gameSettings.difficulty = difficultyCard.dataset.difficulty;
-    }
-
-    // shiny
-    const shinyCard = document.querySelector(".gen-card.selected[data-shiny]");
-    if (shinyCard) {
-        gameSettings.shinyChance = parseFloat(shinyCard.dataset.shiny);
-    }
-
-    settings.classList.add("hidden");
-    menu.classList.remove("hidden");
-
-    console.log("Ajustes guardados:", gameSettings);
-});
-
-
-
-
-
-
-
-
-
 
 
 
