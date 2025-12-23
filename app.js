@@ -596,22 +596,6 @@ const shinyScreen = document.getElementById("shinyScreen");
 const pokedexScreen = document.getElementById("pokedexScreen");
 
 
-openDifficulty.onclick = () => {
-    settings.classList.add("hidden");
-    difficultyScreen.classList.remove("hidden");
-};
-
-openShiny.onclick = () => {
-    settings.classList.add("hidden");
-    shinyScreen.classList.remove("hidden");
-};
-
-openPokedex.onclick = () => {
-    settings.classList.add("hidden");
-    pokedexScreen.classList.remove("hidden");
-    loadPokedex();
-};
-
 
 
 difficultyScreen.querySelectorAll("[data-difficulty]").forEach(card => {
