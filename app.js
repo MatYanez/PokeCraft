@@ -590,3 +590,44 @@ confirmReset.addEventListener("click", () => {
 });
 
 
+const openDifficulty = document.getElementById("openDifficulty");
+const openShiny = document.getElementById("openShiny");
+const openPokedex = document.getElementById("openPokedex");
+
+const difficultyScreen = document.getElementById("difficultyScreen");
+const shinyScreen = document.getElementById("shinyScreen");
+const pokedexScreen = document.getElementById("pokedexScreen");
+
+const btnBackFromSettings = document.getElementById("btnBackFromSettings");
+
+openDifficulty.onclick = () => {
+    settings.classList.add("hidden");
+    difficultyScreen.classList.remove("hidden");
+};
+
+openShiny.onclick = () => {
+    settings.classList.add("hidden");
+    shinyScreen.classList.remove("hidden");
+};
+
+openPokedex.onclick = () => {
+    settings.classList.add("hidden");
+    pokedexScreen.classList.remove("hidden");
+    loadPokedex();
+};
+
+btnBackFromSettings.onclick = () => {
+    settings.classList.add("hidden");
+    menu.classList.remove("hidden");
+};
+
+
+difficultyScreen.querySelectorAll("[data-difficulty]").forEach(card => {
+    card.onclick = () => {
+        difficultyScreen.querySelectorAll("[data-difficulty]")
+            .forEach(c => c.classList.remove("selected"));
+
+        card.classList.add("selected");
+        gameSettings.difficulty = card.dataset.difficulty;
+    };
+});
