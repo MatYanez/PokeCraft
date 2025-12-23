@@ -464,9 +464,8 @@ height: calc(100vh - 120px);
 }
 
 .config-title {
-    font-size: 48px;
+    font-size: 5rem;
     color: white;
-    margin-bottom: 20px;
 }
 
 .gen-list {
