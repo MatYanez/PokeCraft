@@ -506,3 +506,39 @@ height: calc(100vh - 120px);
 .gen-name {
     opacity: 0.9;
 }
+
+
+/* HEADER DE CONFIGURACIÓN */
+.config-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* BOTÓN VOLVER */
+.back-btn {
+    font-size: 32px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 10px 14px;
+    border-radius: 10px;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.back-btn:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+.back-btn:active {
+    transform: scale(0.95);
+}
+
+/* AJUSTE DEL TÍTULO */
+.config-title {
+    flex: 1;
+    text-align: center;
+}
